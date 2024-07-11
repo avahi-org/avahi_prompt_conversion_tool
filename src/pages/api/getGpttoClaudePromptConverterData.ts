@@ -1,9 +1,13 @@
 const axios = require('axios');
 
-const getGpttoClaudePromptConverterData = async (gpt4Text: string) => {
+const getGpttoClaudePromptConverterData = async (
+  gpt4Text: string,
+  model_name: string
+) => {
   const data = JSON.stringify({
     queryStringParameters: {
       query: gpt4Text,
+      model_name,
     },
   });
 
@@ -12,9 +16,9 @@ const getGpttoClaudePromptConverterData = async (gpt4Text: string) => {
     maxBodyLength: Infinity,
     connection: 'keep-alive',
     host: Infinity,
-    url: 'https://lih5v6xvmh.execute-api.us-east-1.amazonaws.com/gpt-to-claude-prompt-converter/convert',
+    url: 'https://an6dzbt9u8.execute-api.us-east-1.amazonaws.com/gpt_to_claude_prompt_converter/convert_prompt',
     headers: {
-      'x-api-key': '6oQ7blzBNH1YWJUjeuh6gFwUu73ZDQO7Oz7266Yg',
+      'x-api-key': 'rA8hYHiV6o5BxrVm0n0Z91DHCHZJ7G5A6P39VJoe',
       'Content-Type': 'application/json',
     },
     data,
