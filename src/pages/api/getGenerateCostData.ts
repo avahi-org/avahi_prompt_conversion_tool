@@ -1,11 +1,8 @@
-import { promptConverterApiURL } from '@/utils/constant';
+import { generateCostApiURL } from '@/utils/constant';
 
 const axios = require('axios');
 
-const getGpttoClaudePromptConverterData = async (
-  gpt4Text: string,
-  model_name: string
-) => {
+const getGenerateCostData = async (gpt4Text: string, model_name: string) => {
   const data = JSON.stringify({
     queryStringParameters: {
       query: gpt4Text,
@@ -18,7 +15,7 @@ const getGpttoClaudePromptConverterData = async (
     maxBodyLength: Infinity,
     connection: 'keep-alive',
     host: Infinity,
-    url: `${promptConverterApiURL}gpt_to_claude_prompt_converter/convert_prompt`,
+    url: `${generateCostApiURL}generate_gpt_input_token_cost/generate_cost`,
     headers: {
       'x-api-key': 'rA8hYHiV6o5BxrVm0n0Z91DHCHZJ7G5A6P39VJoe',
       'Content-Type': 'application/json',
@@ -36,4 +33,4 @@ const getGpttoClaudePromptConverterData = async (
     });
 };
 
-export default getGpttoClaudePromptConverterData;
+export default getGenerateCostData;

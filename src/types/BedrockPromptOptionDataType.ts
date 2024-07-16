@@ -1,6 +1,6 @@
 export interface BedrockPromptOptionDataType {
   id: number;
-  option: string;
+  label: string;
   inputPrice: number;
   outputPrice: number;
   value: string;

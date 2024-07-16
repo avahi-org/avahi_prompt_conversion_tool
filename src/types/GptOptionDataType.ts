@@ -1,4 +1,5 @@
 export interface GptOptionDataType {
   id: number;
-  option: string;
+  value: string;
+  label: string;
 }
