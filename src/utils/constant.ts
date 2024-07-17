@@ -10,17 +10,17 @@ export const GPT_PROMPT_OPTIONS: GptOptionDataType[] = [
 export const BEDROCK_PROMPT_OPTONS: BedrockPromptOptionDataType[] = [
   {
     id: 1,
-    label: 'Haiku',
+    label: 'Haiku 3.0',
     inputPrice: 0.00025,
     outputPrice: 0.00125,
-    value: 'haiku',
+    value: 'haiku-3.0',
   },
   {
     id: 2,
-    label: 'Sonnet',
+    label: 'Sonnet 3.5',
     inputPrice: 0.003,
     outputPrice: 0.015,
-    value: 'sonnet',
+    value: 'sonnet-3.5',
   },
   // {
   //   id: 3,
