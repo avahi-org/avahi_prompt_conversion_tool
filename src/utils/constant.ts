@@ -84,7 +84,7 @@ export const generateCostApiURL =
 
 export const gptExamples = [
   {
-    label: 'Socratic tutor',
+    label: 'Generate responses as a Socratic tutor',
     value: [
       {
         role: 'system',
@@ -98,7 +98,7 @@ export const gptExamples = [
     ],
   },
   {
-    label: 'Memo writer',
+    label: 'Generate a company memo based on provided points',
     value: [
       {
         role: 'user',
@@ -108,7 +108,7 @@ export const gptExamples = [
     ],
   },
   {
-    label: 'Product name generator',
+    label: 'Generate product names from a description and seed words',
     value: [
       {
         role: 'system',
@@ -123,7 +123,7 @@ export const gptExamples = [
     ],
   },
   {
-    label: 'Tweet classifier',
+    label: 'Detect sentiment in a tweet',
     value: [
       {
         role: 'system',
@@ -137,7 +137,7 @@ export const gptExamples = [
     ],
   },
   {
-    label: 'Keywords',
+    label: 'Extract keywords from a block of text',
     value: [
       {
         role: 'system',
