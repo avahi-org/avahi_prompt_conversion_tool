@@ -278,7 +278,7 @@ const Index = () => {
     <Main meta={<Meta title="AVAHI" description="AVAHI" />}>
       <div className="mx-auto flex max-w-[1100px] flex-col gap-5 px-4 pb-12 pt-10">
         <div className="mx-auto flex max-w-[700px] flex-col items-center gap-4">
-          <h1 className="text-center text-[28px] font-normal leading-[60px] text-black">
+          <h1 className="text-center text-[28px] font-semibold leading-[60px] text-black">
             Avahi prompt converter: GPT to bedrock
           </h1>
           <p className="text-center text-base text-black">
