@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import BottomContent from '@/components/BottomContent';
 import CopyTextButton from '@/components/Button/CopyTextButton';
 import SpinnerLoading from '@/components/Loader/SpinnerLoading';
-import PriceCard from '@/components/PriceCard';
+import PriceTable from '@/components/PriceTable';
 import Textarea from '@/components/Textarea';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
@@ -173,9 +173,9 @@ const Index = () => {
       );
 
       endTime = new Date().getTime();
-      if (result) {
-        setSubmitting(false);
-      }
+      // if (result) {
+      //   setSubmitting(false);
+      // }
       if (result && result?.status === 200) {
         const resultData = JSON.parse(result?.data?.body);
         if (resultData) {
@@ -248,9 +248,9 @@ const Index = () => {
       );
 
       endTime = new Date().getTime();
-      if (result) {
-        setSubmitting(false);
-      }
+      // if (result) {
+      //   setSubmitting(false);
+      // }
       if (result && result?.status === 200) {
         const resultData = JSON.parse(result?.data?.body);
         if (resultData) {
@@ -275,7 +275,7 @@ const Index = () => {
   };
 
   return (
-    <Main meta={<Meta title="Home" description="Home" />}>
+    <Main meta={<Meta title="AVAHI" description="AVAHI" />}>
       <div className="mx-auto flex max-w-[1100px] flex-col gap-5 px-4 pb-12 pt-10">
         <div className="mx-auto flex max-w-[700px] flex-col items-center gap-4">
           <h1 className="text-center text-[28px] font-normal leading-[60px] text-black">
@@ -396,49 +396,53 @@ const Index = () => {
             )}
           </div>
 
-          {values?.gptText && (
-            <div className="col-span-2 flex flex-col gap-2 lg:col-span-1">
-              <Textarea
-                id="gptText"
-                name="gptText"
-                placeholder="Write your task here..."
-                onChange={handleChange}
-                value={values?.gptText}
-                disabled={true}
+          {!isSubmitting && (
+            <>
+              {values?.gptText && (
+                <div className="col-span-2 flex flex-col gap-2 lg:col-span-1">
+                  <Textarea
+                    id="gptText"
+                    name="gptText"
+                    placeholder="Write your task here..."
+                    onChange={handleChange}
+                    value={values?.gptText}
+                    disabled={true}
+                  />
+                  <CopyTextButton textValue={values.gptText} />
+                </div>
+              )}
+
+              {values?.bedrockOutput && (
+                <div className="col-span-2 flex flex-col gap-2 lg:col-span-1">
+                  <Textarea
+                    id="bedrockOutput"
+                    name="bedrockOutput"
+                    placeholder="Write your task here..."
+                    onChange={handleChange}
+                    value={values?.bedrockOutput}
+                    disabled={true}
+                  />
+                  <CopyTextButton textValue={values.bedrockOutput} />
+                </div>
+              )}
+
+              <PriceTable
+                title="Input Price Details"
+                price={price}
+                timeDisplay={timeDisplay}
+                cunvertedData={cunvertedData}
               />
-              <CopyTextButton textValue={values.gptText} />
-            </div>
+
+              <PriceTable
+                title="Output Price Details"
+                price={bedrockPrice}
+                timeDisplay={bedrockTimeDisplay}
+                cunvertedData={bedrockCunvertedData}
+              />
+            </>
           )}
 
-          {values?.bedrockOutput && (
-            <div className="col-span-2 flex flex-col gap-2 lg:col-span-1">
-              <Textarea
-                id="bedrockOutput"
-                name="bedrockOutput"
-                placeholder="Write your task here..."
-                onChange={handleChange}
-                value={values?.bedrockOutput}
-                disabled={true}
-              />
-              <CopyTextButton textValue={values.bedrockOutput} />
-            </div>
-          )}
-
-          <PriceCard
-            title="Input Price Details"
-            price={price}
-            timeDisplay={timeDisplay}
-            cunvertedData={cunvertedData}
-          />
-
-          <PriceCard
-            title="Output Price Details"
-            price={bedrockPrice}
-            timeDisplay={bedrockTimeDisplay}
-            cunvertedData={bedrockCunvertedData}
-          />
-
-          {/* <PriceCard
+          {/* <PriceTable
             title="Input Details"
             price={gptPrice}
             timeDisplay={gptTimeDisplay}
