@@ -64,22 +64,32 @@
     
 
 .scrollbar-custom::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 
 
-.scrollbar-custom::-webkit-scrollbar-track {
+/* .scrollbar-custom::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey; 
   border-radius: 10px;
-}
+} */
  
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background: gray; 
+  background: #D0D2EB; 
   border-radius: 10px;
+  margin:0 6px !important;
 }
 
 
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-  background: gray; 
+  /* background: gray;  */
+}
+
+@media print {
+  .page-break {
+    page-break-before: always;
+  }
+  .page-break-avoid {
+    page-break-inside: avoid;
+  }
 }

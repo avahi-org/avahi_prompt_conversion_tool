@@ -11,12 +11,12 @@ type IMainProps = {
 
 const Main = (props: IMainProps) => {
   return (
-    <div className="font-roboto w-full text-gray-700 antialiased">
+    <div className="font-roboto page-break w-full text-gray-700 antialiased">
       {props.meta}
 
       <div className="mx-auto w-full">
         <Header />
-        <main className="text-xl">{props.children}</main>
+        <main className="page-break-inside text-xl">{props.children}</main>
         <Footer />
       </div>
     </div>

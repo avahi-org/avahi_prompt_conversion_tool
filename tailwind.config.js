@@ -21,11 +21,32 @@ module.exports = {
       colors: {
         primary: '#4E54FC',
         secondary: '#0c9a00',
+        purple: {
+          10: '#7432BB',
+        },
+        blue: {
+          5: '#EFF4FE',
+          10: '#EBF2FF',
+          20: '#377FFF',
+          30: '#D8E6FF',
+          40: '#2E7CFE',
+        },
         gray: {
+          10: '#E2E0E5',
           25: '#959595',
           50: '#F9FAFB',
+          75: '#737373',
           100: '#616161',
+          150: ' #A1A1A1',
           1000: '#fafafa',
+        },
+        redLight: {
+          10: '#FFD7D7',
+          20: '#F5095C',
+        },
+        greenLight: {
+          10: '#D5F7D8',
+          20: '#238B5B',
         },
         redError: {
           25: '#FF0000',

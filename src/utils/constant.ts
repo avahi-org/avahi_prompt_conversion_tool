@@ -32,28 +32,58 @@ export const BEDROCK_PROMPT_OPTONS: BedrockPromptOptionDataType[] = [
   // },
 ];
 
+export const selectColourStyles = {
+  control: (styles: any) => ({
+    ...styles,
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    border: '1.5px solid #7432BB',
+    boxShadow: 'none',
+    '&:hover': {
+      borderColor: '#7432BB',
+    },
+  }),
+  IndicatorSeparator: () => null,
+  option: (styles: any, { isFocused, isSelected }: any) => ({
+    ...styles,
+    // eslint-disable-next-line no-nested-ternary
+    backgroundColor: isSelected ? '#F4F4F4' : isFocused ? '#F4F4F4' : undefined,
+    color: isSelected ? '#1084FF' : '#888888',
+    '&:active': {
+      backgroundColor: '#F4F4F4',
+      color: '#1084FF',
+    },
+  }),
+  singleValue: (styles: any) => ({
+    ...styles,
+    color: 'black',
+  }),
+  placeholder: (styles: any) => ({
+    ...styles,
+    color: 'gray',
+  }),
+};
+
 export const colourStyles = {
   control: (styles: any) => ({
     ...styles,
     backgroundColor: 'white',
-    borderColor: 'gray',
+    borderRadius: '8px',
+    border: '1.5px solid #377FFF',
     boxShadow: 'none',
     '&:hover': {
-      borderColor: 'darkgray',
+      borderColor: '#377FFF',
     },
   }),
+  IndicatorSeparator: () => null,
   option: (styles: any, { isFocused, isSelected }: any) => ({
     ...styles,
     // eslint-disable-next-line no-nested-ternary
-    backgroundColor: isSelected
-      ? '#4E54FC'
-      : isFocused
-      ? 'lightgray'
-      : undefined,
-    color: isSelected ? 'white' : 'black',
+    backgroundColor: isSelected ? '#F4F4F4' : isFocused ? '#F4F4F4' : undefined,
+    color: isSelected ? '#1084FF' : '#888888',
     '&:active': {
-      backgroundColor: '#4E54FC',
-      color: 'white',
+      backgroundColor: '#F4F4F4',
+      color: '#1084FF',
     },
   }),
   singleValue: (styles: any) => ({

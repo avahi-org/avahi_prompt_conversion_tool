@@ -1,24 +1,25 @@
+/* eslint-disable new-cap */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useFormik } from 'formik';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
-import { FaExchangeAlt } from 'react-icons/fa';
 import { RiAiGenerate } from 'react-icons/ri';
 import * as Yup from 'yup';
 
-import BottomContent from '@/components/BottomContent';
-import CopyTextButton from '@/components/Button/CopyTextButton';
+import InputChat from '@/components/InputChat';
 import SpinnerLoading from '@/components/Loader/SpinnerLoading';
-import PriceTable from '@/components/PriceTable';
-import Textarea from '@/components/Textarea';
+import PdfGenerate from '@/components/PdfGenerate';
+import PriceSection from '@/components/PriceSection';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 import type { BedrockPromptOptionDataType } from '@/types/BedrockPromptOptionDataType';
 import type { GptOptionDataType } from '@/types/GptOptionDataType';
 import {
   BEDROCK_PROMPT_OPTONS,
-  colourStyles,
   GPT_PROMPT_OPTIONS,
   gptExamples,
+  selectColourStyles,
 } from '@/utils/constant';
 
 import getGenerateClaudeAnswerData from './api/getGenerateClaudeAnswerData';
@@ -28,10 +29,21 @@ import getGpttoClaudePromptConverterData from './api/getGpttoClaudePromptConvert
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
-const Index = () => {
+const test = () => {
+  const [price, setPrice] = useState<number | null>(null);
+  const [cunvertedData, setCunvertedData] = useState<any>(null);
   const [isShowButton, setIsShowButton] = useState<boolean>(false);
-  // const [inputTokenCost, setInputTokenCost] = useState('');
-  // console.log('inputTokenCost', inputTokenCost);
+  const [timeDisplay, setTimeDisplay] = useState<any>(null);
+  const [bedrockCunvertedData, setBedrockCunvertedData] = useState<any>(null);
+  const [bedrockPrice, setBedrockPrice] = useState<number | null>(null);
+  const [bedrockTimeDisplay, setBedrockTimeDisplay] = useState<any>(null);
+  const [gptText, setGptText] = useState('');
+  const [bedrockText, setBedrockText] = useState('');
+  const [showPdfGenerator, setShowPdfGenerator] = useState(false);
+
+  const [, setGptCunvertedData] = useState<any>(null);
+  const [, setGptPrice] = useState<number | null>(null);
+  const [, setGptTimeDisplay] = useState<any>(null);
 
   const [selectedGptData, setSelectedGptData] = useState<
     undefined | GptOptionDataType
@@ -41,18 +53,6 @@ const Index = () => {
     BedrockPromptOptionDataType | undefined
   >(BEDROCK_PROMPT_OPTONS[0]);
 
-  const [price, setPrice] = useState<number | null>(null);
-  const [timeDisplay, setTimeDisplay] = useState<any>(null);
-
-  const [cunvertedData, setCunvertedData] = useState<any>(null);
-  const [bedrockCunvertedData, setBedrockCunvertedData] = useState<any>(null);
-
-  const [bedrockPrice, setBedrockPrice] = useState<number | null>(null);
-  const [bedrockTimeDisplay, setBedrockTimeDisplay] = useState<any>(null);
-  const [, setGptCunvertedData] = useState<any>(null);
-  const [, setGptPrice] = useState<number | null>(null);
-  const [, setGptTimeDisplay] = useState<any>(null);
-
   const getTimeCalculation = (milliseconds: number): string => {
     const totalSeconds = Math.floor(milliseconds / 1000);
     // const hours = Math.floor(totalSeconds / 3600);
@@ -60,7 +60,7 @@ const Index = () => {
     const seconds = totalSeconds % 60;
 
     // return ` ${hours} hrs ${minutes} minutes ${seconds} seconds`;
-    return `${seconds} seconds`;
+    return `${seconds}`;
   };
 
   const {
@@ -123,41 +123,8 @@ const Index = () => {
     },
   });
 
-  useEffect(() => {
-    if (isSubmitting) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = 'unset';
-    }
-  }, [isSubmitting]);
-
-  // const handleGptDropDown = () => {
-  //   setIsOpenGptDropDown(!isOpenGptDropDown);
-  // };
-
-  // const handleBedrockDropDown = () => {
-  //   setIsOpenBedrockDropDown(!isOpenBedrockDropDown);
-  // };
-
-  // const calculatePrice = (wordCount) => {
-  //   if (selectedBedrockData && wordCount > 0) {
-  //     const totalPrice =
-  //       (wordCount * 1.3 * selectedBedrockData.outputPrice) / 100;
-
-  //     setPrice(totalPrice.toFixed(8));
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (values.outputText) {
-  //     const wordCount = wordCounter(values?.outputText);
-  //     setOutputWordCount(wordCount);
-  //     calculatePrice(wordCount);
-  //   }
-  // }, [values.outputText, selectedBedrockData]);
-
   const handleGenerateBedrock = async () => {
-    if (values.outputText && selectedBedrockData) {
+    if (values.outputText && selectedBedrockData?.value) {
       const startTime = new Date().getTime();
       let endTime = null;
       setSubmitting(true);
@@ -173,10 +140,9 @@ const Index = () => {
       );
 
       endTime = new Date().getTime();
-      // if (result) {
-      //   setSubmitting(false);
-      // }
+
       if (result && result?.status === 200) {
+        setBedrockText(selectedBedrockData?.value);
         const resultData = JSON.parse(result?.data?.body);
         if (resultData) {
           const tempElement = document.createElement('div');
@@ -220,6 +186,7 @@ const Index = () => {
       if (result && result?.status === 200) {
         const resultData = JSON.parse(result?.data?.body);
         if (resultData) {
+          setShowPdfGenerator(true);
           setGptTimeDisplay(resultData?.input_token_cost);
           setGptCunvertedData({
             input_token_cost: resultData?.input_token_cost,
@@ -248,12 +215,11 @@ const Index = () => {
       );
 
       endTime = new Date().getTime();
-      // if (result) {
-      //   setSubmitting(false);
-      // }
+
       if (result && result?.status === 200) {
         const resultData = JSON.parse(result?.data?.body);
         if (resultData) {
+          setGptText(selectedGptData?.value);
           setGptCunvertedData({
             input_token_cost: resultData?.input_token_cost,
             output_token: resultData?.output_token_cost,
@@ -274,187 +240,195 @@ const Index = () => {
     handleGenerateGpt();
   };
 
+  const generatePDF = async () => {
+    // setSubmitting(true);
+    // try {
+    //   const response = await fetch('/api/generate-pdf', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ url: window.location.href }),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error('Failed to generate PDF');
+    //   }
+
+    //   const blob = await response.blob();
+    //   const url = window.URL.createObjectURL(blob);
+    //   const a = document.createElement('a');
+    //   a.href = url;
+    //   a.download = 'Avahi.pdf';
+    //   document.body.appendChild(a);
+    //   a.click();
+    //   a.remove();
+    //   window.URL.revokeObjectURL(url);
+    // } catch (error) {
+    //   console.error(error);
+    // } finally {
+    //   setSubmitting(false);
+    // }
+    window.print();
+  };
+
+  useEffect(() => {
+    if (isSubmitting) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'unset';
+    }
+  }, [isSubmitting]);
+
   return (
     <Main meta={<Meta title="AVAHI" description="AVAHI" />}>
-      <div className="mx-auto flex max-w-[1100px] flex-col gap-5 px-4 pb-12 pt-10">
-        <div className="mx-auto flex max-w-[700px] flex-col items-center gap-4">
-          <h1 className="text-center text-[28px] font-semibold leading-[60px] text-black">
-            Avahi prompt converter: GPT to bedrock
-          </h1>
-          <p className="text-center text-base text-black">
-            This tool uses the best prompt engineering practices and converts
-            GPT prompt to Bedrock prompt.
-          </p>
+      <form
+        className=" mx-auto mt-4 flex w-full max-w-[1360px] flex-col gap-9 px-4 pb-[50px]"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex w-full items-center justify-between">
+          <Select
+            options={gptExamples}
+            components={{
+              IndicatorSeparator: () => null,
+            }}
+            onChange={(value: any) => {
+              const text = value?.value
+                ?.map(
+                  (item: any) =>
+                    `${item?.role?.toUpperCase()}\n${item?.content}\n\n`
+                )
+                .join('');
+
+              setFieldValue('typeText', text);
+            }}
+            styles={selectColourStyles}
+            placeholder="Select GPT Example"
+            className="w-56 font-poppins text-base font-medium leading-6"
+          />
+
+          {/* <span className="font-poppins text-base font-medium leading-6 text-gray-150">
+            *For Demo purposes
+          </span> */}
         </div>
 
-        <form
-          className="grid grid-cols-2 gap-x-[75px] gap-y-5"
-          onSubmit={handleSubmit}
-        >
-          <div className="col-span-2 flex flex-col gap-1 lg:col-span-1">
-            <label htmlFor="" className="text-lg font-semibold">
-              Select GPT Example
-            </label>
-            <Select
-              onChange={(value: any) => {
-                const text = value?.value
-                  ?.map(
-                    (item: any) =>
-                      `${item?.role?.toUpperCase()}\n${item?.content}\n\n`
-                  )
-                  .join('');
+        <div className="grid grid-cols-2  rounded-lg shadow-card">
+          <InputChat
+            className="rounded-l-xl bg-white pr-[64px] "
+            options={GPT_PROMPT_OPTIONS}
+            defaultValue={selectedGptData}
+            selectChange={(value: any) => setSelectedGptData(value as any)}
+            isCloseButton={!!values?.typeText}
+            handleClear={() => setFieldValue('typeText', '')}
+            title="OpenAI"
+            textareaId="typeText"
+            height="h-[100px]"
+            textareaName="typeText"
+            textareaOnChange={handleChange}
+            textareaValue={values?.typeText}
+            copyText={values?.typeText}
+            textareaPlaceholder="Write your task here..."
+            description="Paste the GPT prompt you want to convert below."
+            isSend={true}
+          />
 
-                setFieldValue('typeText', text);
-              }}
-              options={gptExamples}
-              className="w-full hover:border-primary"
-              styles={colourStyles}
-              id="selectedText"
-              placeholder="Select GPT Example"
-            />
-          </div>
-          <div className="hidden lg:block" />
+          <InputChat
+            className="rounded-r-xl bg-blue-10/75 pl-[64px]"
+            defaultValue={selectedBedrockData}
+            options={BEDROCK_PROMPT_OPTONS}
+            selectChange={(value) => {
+              setSelectedBedrockData(value as any);
+            }}
+            isLikeButton={!!values?.outputText}
+            textareaOnChange={handleChange}
+            textareaValue={values?.outputText}
+            copyText={values?.outputText}
+            disabled={!values?.outputText}
+            height="h-[100px]"
+            title="Bedrock"
+            textareaId="outputText"
+            textareaName="outputText"
+            description="Below you'll see the converted prompt.  The {{ VARIABLE }} tags represent dynamic variables."
+          />
+        </div>
 
-          <div className="col-span-2 flex flex-col gap-2 lg:col-span-1">
-            <div className="relative flex flex-col items-start gap-1">
-              <Select
-                defaultValue={selectedGptData}
-                onChange={(value) => setSelectedGptData(value as any)}
-                options={GPT_PROMPT_OPTIONS}
-                className="w-full hover:border-primary"
-                styles={colourStyles}
-                id="selectedGptData"
-                placeholder="select option selected"
-              />
-              <h2 className="text-lg font-semibold text-primary">GPT Prompt</h2>
-              <h2 className="text-xs font-normal text-black">
-                Paste your GPT prompt below.
-              </h2>
-            </div>
-
-            <Textarea
-              id="typeText"
-              name="typeText"
-              placeholder="Write your task here..."
-              onChange={handleChange}
-              value={values?.typeText}
-            />
-          </div>
-
-          <div className="col-span-2 flex flex-col gap-2 lg:col-span-1">
-            <div className="relative flex flex-col items-start gap-1">
-              <Select
-                defaultValue={selectedBedrockData}
-                onChange={(value) => {
-                  setSelectedBedrockData(value as any);
-                }}
-                options={BEDROCK_PROMPT_OPTONS}
-                id="test"
-                className="w-full hover:border-primary"
-                styles={colourStyles}
-              />
-
-              <h2 className="text-lg font-semibold text-secondary">
-                Bedrock Prompt
-              </h2>
-              <h2 className="text-xs font-normal text-black">
-                Below you&apos;ll see the prompt. The{' '}
-                <span className="font-bold">{'{{ VARIABLE }}'}</span> tags
-                represent dynamic variables.
-              </h2>
-            </div>
-
-            <Textarea
-              id="outputText"
-              name="outputText"
-              onChange={handleChange}
-              value={values?.outputText}
-              placeholder="Write your task here..."
-            />
-
-            <CopyTextButton textValue={values.outputText} />
-          </div>
-
-          <div className="col-span-2 flex items-center justify-center gap-2 pb-9">
+        {isShowButton && (
+          <div className="flex items-center justify-center">
             <button
-              className={`${
-                isShowButton ? ' ml-auto' : 'mx-auto'
-              } mb-2 flex w-[190px] max-w-full items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 to-blue-500 px-4 py-2 pb-2.5 text-[15px] leading-5 text-white outline-none hover:bg-blue-700`}
-              type="submit"
+              className="z-30 flex items-center justify-center gap-1.5 rounded-lg border  border-gray-10  bg-blue-20 px-2 py-1.5 font-poppins text-base font-medium leading-6 text-white"
+              type="button"
+              onClick={() => handleGenerateOutput()}
             >
-              <FaExchangeAlt /> Convert Prompt
+              <span>Generate Output</span>
+              <RiAiGenerate />
             </button>
+          </div>
+        )}
 
-            {isShowButton && (
-              <button
-                className="mb-2 mr-auto flex w-[190px] max-w-full items-center gap-2 rounded-full bg-gradient-to-r from-indigo-600 to-blue-500 px-4 py-2 pb-2.5 text-[15px] leading-5 text-white outline-none hover:bg-blue-700"
-                type="button"
-                onClick={() => handleGenerateOutput()}
-              >
-                <RiAiGenerate /> Generate Output
-              </button>
+        {(values?.bedrockOutput || values?.gptText) && !isSubmitting && (
+          <div className="grid grid-cols-2 rounded-lg border  border-gray-10 shadow-card">
+            {values?.gptText && (
+              <InputChat
+                className="rounded-l-xl border-r border-gray-10 "
+                isText={true}
+                selectedText={gptText}
+                textareaOnChange={handleChange}
+                textareaValue={values?.gptText}
+                copyText={values?.gptText}
+                title="OpenAI"
+                textareaId="gptText"
+                textareaName="gptText"
+                description="The following text is the output of the GPT prompt."
+              />
+            )}
+
+            {values?.bedrockOutput && (
+              <InputChat
+                className="rounded-r-xl "
+                isText={true}
+                selectedText={bedrockText}
+                textareaOnChange={handleChange}
+                textareaValue={values?.bedrockOutput}
+                copyText={values?.bedrockOutput}
+                title="Bedrock"
+                textareaId="bedrockOutput"
+                textareaName="bedrockOutput"
+                description="The following text is the output of the converted Bedrock prompt."
+              />
             )}
           </div>
+        )}
 
-          {!isSubmitting && (
-            <>
-              {values?.gptText && (
-                <div className="col-span-2 flex flex-col gap-2 lg:col-span-1">
-                  <Textarea
-                    id="gptText"
-                    name="gptText"
-                    placeholder="Write your task here..."
-                    onChange={handleChange}
-                    value={values?.gptText}
-                    disabled={true}
-                  />
-                  <CopyTextButton textValue={values.gptText} />
-                </div>
-              )}
+        {showPdfGenerator && <PdfGenerate handleClick={generatePDF} />}
 
-              {values?.bedrockOutput && (
-                <div className="col-span-2 flex flex-col gap-2 lg:col-span-1">
-                  <Textarea
-                    id="bedrockOutput"
-                    name="bedrockOutput"
-                    placeholder="Write your task here..."
-                    onChange={handleChange}
-                    value={values?.bedrockOutput}
-                    disabled={true}
-                  />
-                  <CopyTextButton textValue={values.bedrockOutput} />
-                </div>
-              )}
+        {(price || bedrockPrice) && !isSubmitting && (
+          <div className="flex gap-[64px]">
+            <PriceSection
+              title="Input Pricing"
+              price={price}
+              outputPrice={bedrockPrice}
+              timeDisplay={timeDisplay}
+              cunvertedData={cunvertedData}
+            />
 
-              <PriceTable
-                title="Input Price Details"
-                price={price}
-                timeDisplay={timeDisplay}
-                cunvertedData={cunvertedData}
-              />
-
-              <PriceTable
-                title="Output Price Details"
-                price={bedrockPrice}
-                timeDisplay={bedrockTimeDisplay}
-                cunvertedData={bedrockCunvertedData}
-              />
-            </>
-          )}
-
-          {/* <PriceTable
-            title="Input Details"
-            price={gptPrice}
-            timeDisplay={gptTimeDisplay}
-            cunvertedData={gptCunvertedData}
-          /> */}
-        </form>
-
-        <BottomContent />
-      </div>
+            <PriceSection
+              title="Output Pricing"
+              isGreenText={true}
+              price={bedrockPrice}
+              isShowPrPrice={true}
+              inputTimeDisplay={timeDisplay}
+              inputPrice={price}
+              inputCunvertedData={cunvertedData}
+              timeDisplay={bedrockTimeDisplay}
+              cunvertedData={bedrockCunvertedData}
+            />
+          </div>
+        )}
+      </form>
 
       {isSubmitting && <SpinnerLoading />}
     </Main>
   );
 };
-export default Index;
+
+export default test;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FaCopy } from 'react-icons/fa';
+
+import CoppyIcon from '../Icons/CoppyIcon';
 
 type CopyTextButtonProps = {
   textValue: string | null | undefined;
@@ -9,9 +10,9 @@ const CopyTextButton = ({ textValue }: CopyTextButtonProps) => {
   const [isCopied, setIsCopied] = useState('Copy to Clipboard');
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex w-fit items-center justify-between rounded-lg hover:bg-blue-20 ">
       <button
-        className="z-30 ml-auto flex items-center gap-2 rounded-full border bg-gradient-to-r from-indigo-600 to-blue-500 px-4 py-2 pb-2.5 text-xs leading-3 text-white outline-none "
+        className="z-30 flex items-center gap-1.5 rounded-lg  border border-blue-20 px-2 py-1.5 font-poppins text-base font-medium leading-6 text-blue-20 hover:text-white"
         type="button"
         onClick={() => {
           if (textValue) {
@@ -23,8 +24,8 @@ const CopyTextButton = ({ textValue }: CopyTextButtonProps) => {
           }
         }}
       >
+        <CoppyIcon />
         {isCopied}
-        <FaCopy />
       </button>
     </div>
   );
