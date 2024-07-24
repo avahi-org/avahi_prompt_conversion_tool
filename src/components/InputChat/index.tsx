@@ -60,7 +60,7 @@ const InputChat = ({
   handleClear,
 }: InputChatProps) => {
   return (
-    <div className={`px-9 py-6 ${className} flex flex-col gap-6`}>
+    <div className={`px-9  py-6 ${className} flex flex-col gap-6`}>
       {isText ? (
         <h3 className="w-fit rounded-lg border border-blue-10 bg-blue-30 p-2 font-poppins text-base font-medium leading-6 text-blue-40">
           {selectedText}
@@ -135,7 +135,10 @@ const InputChat = ({
 
       {isSend && (
         <div className="flex w-full items-center justify-end">
-          <button type="submit">
+          <button
+            type="submit"
+            className="rounded-xl border border-[#D8E6FF] text-[#EBF2FF] transition-all hover:text-[#BFD6FF]"
+          >
             <SendIcon />
           </button>
         </div>

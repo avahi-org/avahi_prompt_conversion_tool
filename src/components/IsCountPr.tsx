@@ -9,7 +9,7 @@ type IsCountPrProps = {
 const IsCountPr = ({ count, isUp }: IsCountPrProps) => {
   return (
     <>
-      {count && (
+      {count !== 0 && (
         <div
           className={`${
             !isUp

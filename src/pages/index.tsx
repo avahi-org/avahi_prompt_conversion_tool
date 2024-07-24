@@ -29,7 +29,7 @@ import getGpttoClaudePromptConverterData from './api/getGpttoClaudePromptConvert
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
-const test = () => {
+const Home = () => {
   const [price, setPrice] = useState<number | null>(null);
   const [cunvertedData, setCunvertedData] = useState<any>(null);
   const [isShowButton, setIsShowButton] = useState<boolean>(false);
@@ -40,9 +40,10 @@ const test = () => {
   const [gptText, setGptText] = useState('');
   const [bedrockText, setBedrockText] = useState('');
   const [showPdfGenerator, setShowPdfGenerator] = useState(false);
+  const [isLoad, setIsLoad] = useState(false);
 
   const [, setGptCunvertedData] = useState<any>(null);
-  const [, setGptPrice] = useState<number | null>(null);
+  // const [, setGptPrice] = useState<number | null>(null);
   const [, setGptTimeDisplay] = useState<any>(null);
 
   const [selectedGptData, setSelectedGptData] = useState<
@@ -220,18 +221,18 @@ const test = () => {
         const resultData = JSON.parse(result?.data?.body);
         if (resultData) {
           setGptText(selectedGptData?.value);
-          setGptCunvertedData({
+          setCunvertedData({
             input_token_cost: resultData?.input_token_cost,
             output_token: resultData?.output_token_cost,
           });
           setFieldValue('gptText', resultData.answer);
-          setGptPrice(resultData?.total_average_cost);
+          setPrice(resultData?.total_average_cost);
           await handleGenerateCost();
         }
       }
 
       const getTime = getTimeCalculation(endTime - startTime);
-      setGptTimeDisplay(getTime);
+      setTimeDisplay(getTime);
     }
   };
 
@@ -240,36 +241,74 @@ const test = () => {
     handleGenerateGpt();
   };
 
+  // const generatePDF = async () => {
+  // setSubmitting(true);
+  // try {
+  //   const response = await fetch('/api/generate-pdf', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ url: window.location.href }),
+  //   });
+
+  //   if (!response.ok) {
+  //     throw new Error('Failed to generate PDF');
+  //   }
+
+  //   const blob = await response.blob();
+  //   const url = window.URL.createObjectURL(blob);
+  //   const a = document.createElement('a');
+  //   a.href = url;
+  //   a.download = 'Avahi.pdf';
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   a.remove();
+  //   window.URL.revokeObjectURL(url);
+  // } catch (error) {
+  //   console.error(error);
+  // } finally {
+  //   setSubmitting(false);
+  // }
+  // window.print();
+
+  // const input = document.getElementById('divToPrint');
+  // html2canvas(input).then((canvas) => {
+  //   const imgData = canvas.toDataURL('image/png');
+  //   const pdf = new jsPDF();
+  //   pdf.addImage(imgData, 'JPEG', 0, 0);
+  //   // pdf.output('dataurlnewwindow');
+  //   pdf.save('download.pdf');
+  // });
+  // };
+
   const generatePDF = async () => {
-    // setSubmitting(true);
-    // try {
-    //   const response = await fetch('/api/generate-pdf', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ url: window.location.href }),
-    //   });
+    if (typeof window === 'undefined') return;
+    setIsLoad(true);
 
-    //   if (!response.ok) {
-    //     throw new Error('Failed to generate PDF');
-    //   }
+    try {
+      const html2pdf = await import('html2pdf.js' as any);
+      const element = document.getElementById('content-to-pdf');
 
-    //   const blob = await response.blob();
-    //   const url = window.URL.createObjectURL(blob);
-    //   const a = document.createElement('a');
-    //   a.href = url;
-    //   a.download = 'Avahi.pdf';
-    //   document.body.appendChild(a);
-    //   a.click();
-    //   a.remove();
-    //   window.URL.revokeObjectURL(url);
-    // } catch (error) {
-    //   console.error(error);
-    // } finally {
-    //   setSubmitting(false);
-    // }
-    window.print();
+      const options = {
+        filename: 'report.pdf',
+        image: { type: 'png', quality: 1 },
+        html2canvas: { scale: 3, useCORS: true },
+        jsPDF: { unit: 'in', format: 'A4', orientation: 'landscape' },
+      };
+
+      html2pdf
+        .default()
+        .from(element)
+        .set(options)
+        .save()
+        .then(() => {
+          setIsLoad(false);
+        });
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      setIsLoad(false);
+    }
   };
 
   useEffect(() => {
@@ -333,7 +372,7 @@ const test = () => {
           />
 
           <InputChat
-            className="rounded-r-xl bg-blue-10/75 pl-[64px]"
+            className="rounded-r-xl  bg-blue-10/75 pl-[64px]"
             defaultValue={selectedBedrockData}
             options={BEDROCK_PROMPT_OPTONS}
             selectChange={(value) => {
@@ -355,7 +394,7 @@ const test = () => {
         {isShowButton && (
           <div className="flex items-center justify-center">
             <button
-              className="z-30 flex items-center justify-center gap-1.5 rounded-lg border  border-gray-10  bg-blue-20 px-2 py-1.5 font-poppins text-base font-medium leading-6 text-white"
+              className="z-30 flex items-center justify-center gap-1.5 rounded-lg border  border-gray-10 bg-blue-20  px-2 py-1.5 font-poppins text-base font-medium leading-6 text-white transition-all hover:bg-blue-50"
               type="button"
               onClick={() => handleGenerateOutput()}
             >
@@ -399,7 +438,9 @@ const test = () => {
           </div>
         )}
 
-        {showPdfGenerator && <PdfGenerate handleClick={generatePDF} />}
+        {showPdfGenerator && (
+          <PdfGenerate handleClick={generatePDF} isLoad={isLoad} />
+        )}
 
         {(price || bedrockPrice) && !isSubmitting && (
           <div className="flex gap-[64px]">
@@ -431,4 +472,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Home;

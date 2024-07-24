@@ -30,6 +30,7 @@ const PriceSection = ({
   inputTimeDisplay,
   inputPrice,
 }: PriceSectionProps) => {
+  console.log('timeDisplay', timeDisplay);
   const bedrockCost = (cunvertedData?.output_token * 1000).toFixed(2);
   const inputCost = (cunvertedData?.input_token_cost * 1000).toFixed(2);
   const inputPriceFix = price ? (price * 1000).toFixed(2) : '';
@@ -72,9 +73,11 @@ const PriceSection = ({
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div
-              className={`flex flex-col gap-5 rounded-xl border ${
-                isGreenText ? 'border-greenLight-10' : 'border-[#FFD7D7]'
-              } bg-white p-6`}
+              className={`flex cursor-pointer flex-col gap-5 rounded-xl border ${
+                isGreenText
+                  ? 'border-greenLight-10 hover:border-greenLight-20 hover:bg-greenLight-10'
+                  : 'border-[#FFD7D7] hover:border-redLight-20 hover:bg-redLight-10'
+              } bg-white p-6 transition-all`}
             >
               <div
                 className={`flex items-center justify-between ${
@@ -108,11 +111,17 @@ const PriceSection = ({
               </span>
             </div>
 
-            <div className="flex flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-6">
+            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-6 transition-all hover:bg-white">
               <span className="font-poppins text-base font-medium text-black">
                 Input Token Cost
               </span>
-              <span className="flex items-center gap-4 text-[36px] font-medium leading-8 text-black">
+              <span
+                className={`flex items-center gap-4 text-[36px] font-medium leading-8 text-black ${
+                  isGreenText
+                    ? 'group-hover:text-blue-20'
+                    : 'group-hover:text-redLight-20'
+                }`}
+              >
                 ${inputCost}
                 {isShowPrPrice && (
                   <IsCountPr
@@ -125,11 +134,17 @@ const PriceSection = ({
               </span>
             </div>
 
-            <div className="flex flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-6">
+            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-6 transition-all hover:bg-white">
               <span className="font-poppins text-base font-medium text-black">
                 Time Taken
               </span>
-              <span className="flex items-center gap-4 text-[36px] font-medium leading-8 text-black">
+              <span
+                className={`flex items-center gap-4 text-[36px] font-medium leading-8 text-black ${
+                  isGreenText
+                    ? 'group-hover:text-blue-20'
+                    : 'group-hover:text-redLight-20'
+                }`}
+              >
                 {timeDisplay}s
                 {isShowPrPrice && (
                   <IsCountPr
@@ -142,11 +157,19 @@ const PriceSection = ({
               </span>
             </div>
 
-            <div className="flex flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-6">
+            <div
+              className={`group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-6 transition-all  hover:bg-white`}
+            >
               <span className="font-poppins text-base font-medium text-black">
                 Output Token Cost
               </span>
-              <span className="flex items-center gap-4 text-[36px] font-medium leading-8 text-black">
+              <span
+                className={`flex items-center gap-4 text-[36px] font-medium leading-8 text-black ${
+                  isGreenText
+                    ? 'group-hover:text-blue-20'
+                    : 'group-hover:text-redLight-20'
+                }`}
+              >
                 ${bedrockCost}
                 {isShowPrPrice && (
                   <IsCountPr

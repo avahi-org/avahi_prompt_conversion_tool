@@ -16,7 +16,9 @@ const Main = (props: IMainProps) => {
 
       <div className="mx-auto w-full">
         <Header />
-        <main className="page-break-inside text-xl">{props.children}</main>
+        <main className="page-break-inside text-xl" id="content-to-pdf">
+          {props.children}
+        </main>
         <Footer />
       </div>
     </div>

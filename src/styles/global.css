@@ -86,10 +86,14 @@
 }
 
 @media print {
-  .page-break {
-    page-break-before: always;
-  }
-  .page-break-avoid {
-    page-break-inside: avoid;
-  }
+    .page-break {
+        page-break-before: always;
+    }
+
+    .page {
+        page-break-after: always;
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #000;
+    }
 }

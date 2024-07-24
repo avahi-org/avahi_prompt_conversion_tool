@@ -16,11 +16,14 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@swc/helpers": "^0.5.12",
     "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.3.4",
     "dayjs": "^1.11.11",
     "formik": "^2.4.6",
+    "framer-motion": "^11.3.13",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.9.0",
     "jspdf": "^2.5.1",
     "next": "^13.2.1",
     "next-seo": "^5.15.0",
@@ -30,6 +33,7 @@
     "react": "^18.2.0",
     "react-datepicker": "^6.9.0",
     "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
     "react-icons": "^5.2.1",
     "react-select": "^5.8.0",
     "tailwind-merge": "^1.10.0",

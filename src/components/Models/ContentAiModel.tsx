@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Dispatch, SetStateAction } from 'react';
 import React, { useEffect } from 'react';
 
@@ -48,17 +49,20 @@ const ContentAiModel = ({ isOpen, setIsOpen }: ContentAiModelProps) => {
             <div className="flex flex-col gap-6">
               <div className="flex gap-8">
                 <div className="flex w-full flex-col gap-3">
-                  <h3 className="w-full text-center font-poppins text-xl font-medium text-redLight-20">
+                  <h3 className="mt-6 w-full text-center font-poppins text-xl font-medium text-redLight-20">
                     Standard LLM Architecture
                   </h3>
 
-                  <div className="flex flex-col gap-5 rounded-2xl border-2 border-redLight-20 px-4 py-8">
+                  <div className="flex flex-col gap-5 rounded-2xl border-2 border-redLight-10 px-4 py-8">
                     {STANDARD_LLM_ARCHITECTURE?.map((item, index) => (
-                      <div key={index} className="flex items-center gap-2 py-2">
+                      <div
+                        key={index}
+                        className="flex cursor-pointer items-center gap-4 rounded-md p-2 transition-all hover:bg-redLight-10"
+                      >
                         <img
                           src="/images/sadEmoji.png"
                           alt="sadEmoji"
-                          className="size-5"
+                          className="size-[25px]"
                         />
                         <p className="font-poppins text-sm font-medium text-black">
                           {item}
@@ -68,22 +72,30 @@ const ContentAiModel = ({ isOpen, setIsOpen }: ContentAiModelProps) => {
                   </div>
                 </div>
                 <div className="flex w-full flex-col gap-3">
-                  <div className="flex w-full items-center justify-center gap-2">
-                    <AvahiAiIcon />
-                    <h3 className="font-poppins text-xl font-medium text-blue-20">
-                      Avahi AI
-                    </h3>
+                  <div className="flex w-full flex-col items-center justify-center gap-1">
+                    <div className="flex items-center justify-center gap-2">
+                      <AvahiAiIcon />
+                      <h3 className="font-poppins text-xl font-medium text-blue-20">
+                        Avahi AI
+                      </h3>
+                    </div>
+                    <span className="font-poppins text-sm font-medium italic  text-gray-75">
+                      Powered by AWS Bedrock
+                    </span>
                   </div>
 
                   <div className="flex flex-col gap-5 rounded-2xl border-2 border-blue-30 px-4 py-8">
                     {AVAHI_AI?.map((item, index) => (
-                      <div key={index} className="flex items-center gap-2 py-2">
+                      <div
+                        key={index}
+                        className="flex items-center gap-4 rounded-md p-2 transition-all hover:bg-[#D5F7D8]"
+                      >
                         <img
                           src="/images/SmileEmoji.png"
                           alt="sadEmoji"
-                          className="size-5"
+                          className="size-[25px]"
                         />
-                        <p className="font-poppins text-sm font-medium text-black">
+                        <p className="whitespace-nowrap font-poppins text-sm font-medium text-black">
                           {item}
                         </p>
                       </div>
@@ -93,9 +105,13 @@ const ContentAiModel = ({ isOpen, setIsOpen }: ContentAiModelProps) => {
               </div>
 
               <div className="flex w-full items-center justify-center">
-                <button className="rounded-md bg-blue-20 px-3 py-2 font-poppins text-base font-medium leading-5 text-white">
+                <Link
+                  href={'https://www.avahitech.com/'}
+                  target="_blank"
+                  className="rounded-md bg-blue-20 px-3 py-2 font-poppins text-base font-medium leading-5 text-white transition-all hover:bg-blue-50"
+                >
                   Learn more
-                </button>
+                </Link>
               </div>
             </div>
           </div>
