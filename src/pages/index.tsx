@@ -12,7 +12,7 @@ import SpinnerLoading from '@/components/Loader/SpinnerLoading';
 import PdfGenerate from '@/components/PdfGenerate';
 import PriceSection from '@/components/PriceSection';
 import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
+import { MainLayout } from '@/templates/MainLayout';
 import type { BedrockPromptOptionDataType } from '@/types/BedrockPromptOptionDataType';
 import type { GptOptionDataType } from '@/types/GptOptionDataType';
 import {
@@ -291,6 +291,7 @@ const Home = () => {
       const element = document.getElementById('content-to-pdf');
 
       const options = {
+        margin: [0.1, 0.1, 0.1, 0.1],
         filename: 'report.pdf',
         image: { type: 'png', quality: 1 },
         html2canvas: { scale: 3, useCORS: true },
@@ -320,10 +321,11 @@ const Home = () => {
   }, [isSubmitting]);
 
   return (
-    <Main meta={<Meta title="AVAHI" description="AVAHI" />}>
+    <MainLayout meta={<Meta title="AVAHI" description="AVAHI" />}>
       <form
-        className=" mx-auto mt-4 flex w-full max-w-[1360px] flex-col gap-9 px-4 pb-[50px]"
+        className="mx-auto flex w-full flex-col gap-9  px-6"
         onSubmit={handleSubmit}
+        id="content-to-pdf"
       >
         <div className="flex w-full items-center justify-between">
           <Select
@@ -445,7 +447,7 @@ const Home = () => {
         {(price || bedrockPrice) && !isSubmitting && (
           <div className="flex gap-[64px]">
             <PriceSection
-              title="Input Pricing"
+              title="OpenAI Pricing"
               price={price}
               outputPrice={bedrockPrice}
               timeDisplay={timeDisplay}
@@ -453,7 +455,7 @@ const Home = () => {
             />
 
             <PriceSection
-              title="Output Pricing"
+              title="Bedrock Pricing"
               isGreenText={true}
               price={bedrockPrice}
               isShowPrPrice={true}
@@ -468,7 +470,7 @@ const Home = () => {
       </form>
 
       {isSubmitting && <SpinnerLoading />}
-    </Main>
+    </MainLayout>
   );
 };
 

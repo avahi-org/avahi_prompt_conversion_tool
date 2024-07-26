@@ -30,7 +30,6 @@ const PriceSection = ({
   inputTimeDisplay,
   inputPrice,
 }: PriceSectionProps) => {
-  console.log('timeDisplay', timeDisplay);
   const bedrockCost = (cunvertedData?.output_token * 1000).toFixed(2);
   const inputCost = (cunvertedData?.input_token_cost * 1000).toFixed(2);
   const inputPriceFix = price ? (price * 1000).toFixed(2) : '';
