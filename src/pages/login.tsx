@@ -1,19 +1,38 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable-next-line import/no-extraneous-dependencies */
+import axios from 'axios';
 import { useFormik } from 'formik';
 import { AnimatePresence, motion } from 'framer-motion';
+import type { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import nookies, { setCookie } from 'nookies';
 import React, { useCallback, useState } from 'react';
 import { Eye, EyeOff, Lock, Mail } from 'react-feather';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import { Meta } from '@/layouts/Meta';
 
 const Login = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword((prev) => !prev);
   }, []);
+
+  const handleLogin = async (username: string, password: string) => {
+    try {
+      const response = await axios.post('/api/login', { username, password });
+      setCookie(null, 'token', response.data.token, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: '/',
+      });
+      router.push('/auth');
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   const { errors, handleSubmit, handleBlur, handleChange, values, touched } =
     useFormik({
@@ -22,11 +41,12 @@ const Login = () => {
         password: '',
       },
       validationSchema: Yup.object({
-        email: Yup.string().email('Invalid email address').required('Required'),
+        // email: Yup.string().email('Invalid email address').required('Required'),
+        email: Yup.string().required('Required'),
         password: Yup.string().required('Required'),
       }),
       onSubmit: (value) => {
-        console.log('values:', value);
+        handleLogin(value.email, value.password);
       },
     });
 
@@ -140,3 +160,20 @@ const Login = () => {
 };
 
 export default Login;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const accessToken = nookies.get(ctx)?.token;
+
+  if (accessToken) {
+    return {
+      redirect: {
+        source: ctx.req.url,
+        destination: `/auth`,
+      },
+      props: {},
+    };
+  }
+  return {
+    props: {},
+  };
+};

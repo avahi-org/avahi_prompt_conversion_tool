@@ -18,7 +18,6 @@ type PriceSectionProps = {
   inputCunvertedData?: any;
   inputTimeDisplay?: any;
 };
-
 const PriceSection = ({
   price,
   cunvertedData,
@@ -33,39 +32,32 @@ const PriceSection = ({
   const bedrockCost = (cunvertedData?.output_token * 1000).toFixed(2);
   const inputCost = (cunvertedData?.input_token_cost * 1000).toFixed(2);
   const inputPriceFix = price ? (price * 1000).toFixed(2) : '';
-
   const pricePr = calculateAmmount(Number(inputPrice), Number(price));
-
   const timeTaken = calculateAmmount(
     Number(inputTimeDisplay),
     Number(timeDisplay)
   );
-
   const outputToken = calculateAmmount(
     Number(inputCunvertedData?.output_token),
     Number(cunvertedData?.output_token)
   );
-
   const inputToken = calculateAmmount(
     Number(inputCunvertedData?.input_token_cost),
     Number(cunvertedData?.input_token_cost)
   );
-
   return (
     <>
       {price && (
         <div className="flex w-1/2 flex-col gap-6">
           <div className="flex items-center justify-between">
-            <h3 className="font-poppins text-2xl font-medium leading-8 text-black">
+            <h3 className="font-poppins  text-xl font-medium leading-8 text-black 2xl:text-2xl">
               {title}
             </h3>
-
             <div className="flex items-center gap-3">
-              <span className="font-poppins text-base font-medium text-gray-150">
+              <span className="whitespace-nowrap  font-poppins  text-base font-medium text-gray-150">
                 Cost of running
               </span>
-
-              <span className="rounded-lg border border-blue-30 bg-blue-10 p-2 font-poppins text-base font-medium text-blue-20">
+              <span className="whitespace-nowrap rounded-lg border border-blue-30 bg-blue-10 p-2 font-poppins text-base font-medium text-blue-20">
                 1000 times
               </span>
             </div>
@@ -76,7 +68,7 @@ const PriceSection = ({
                 isGreenText
                   ? 'border-greenLight-10 hover:border-greenLight-20 hover:bg-greenLight-10'
                   : 'border-[#FFD7D7] hover:border-redLight-20 hover:bg-redLight-10'
-              } bg-white p-6 transition-all`}
+              } bg-white p-4 transition-all 2xl:p-6`}
             >
               <div
                 className={`flex items-center justify-between ${
@@ -96,7 +88,7 @@ const PriceSection = ({
                 className={`${
                   isGreenText ? 'text-greenLight-20' : 'text-redLight-20'
                 } flex items-center
-                  gap-4 text-[36px] font-medium leading-8`}
+                  gap-2 text-3xl font-medium leading-8 2xl:gap-4 2xl:text-[36px]`}
               >
                 ${inputPriceFix}
                 {isShowPrPrice && (
@@ -109,13 +101,12 @@ const PriceSection = ({
                 )}
               </span>
             </div>
-
-            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-6 transition-all hover:bg-white">
+            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-4 transition-all hover:bg-white 2xl:p-6">
               <span className="font-poppins text-base font-medium text-black">
                 Input Token Cost
               </span>
               <span
-                className={`flex items-center gap-4 text-[36px] font-medium leading-8 text-black ${
+                className={`flex items-center gap-2 text-3xl font-medium leading-8 text-black 2xl:gap-4 2xl:text-[36px] ${
                   isGreenText
                     ? 'group-hover:text-blue-20'
                     : 'group-hover:text-redLight-20'
@@ -132,13 +123,12 @@ const PriceSection = ({
                 )}
               </span>
             </div>
-
-            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-6 transition-all hover:bg-white">
+            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-4 transition-all hover:bg-white 2xl:p-6">
               <span className="font-poppins text-base font-medium text-black">
                 Time Taken
               </span>
               <span
-                className={`flex items-center gap-4 text-[36px] font-medium leading-8 text-black ${
+                className={`flex items-center gap-2 text-3xl font-medium leading-8 text-black 2xl:gap-4 2xl:text-[36px] ${
                   isGreenText
                     ? 'group-hover:text-blue-20'
                     : 'group-hover:text-redLight-20'
@@ -155,15 +145,14 @@ const PriceSection = ({
                 )}
               </span>
             </div>
-
             <div
-              className={`group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-6 transition-all  hover:bg-white`}
+              className={`group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-4 transition-all hover:bg-white  2xl:p-6`}
             >
               <span className="font-poppins text-base font-medium text-black">
                 Output Token Cost
               </span>
               <span
-                className={`flex items-center gap-4 text-[36px] font-medium leading-8 text-black ${
+                className={`flex items-center gap-2 text-3xl  font-medium leading-8 text-black 2xl:gap-4 2xl:text-[36px] ${
                   isGreenText
                     ? 'group-hover:text-blue-20'
                     : 'group-hover:text-redLight-20'
@@ -186,5 +175,4 @@ const PriceSection = ({
     </>
   );
 };
-
 export default PriceSection;

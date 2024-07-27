@@ -16,24 +16,24 @@ const SimICon = () => {
         height="16"
         rx="2"
         stroke="#377FFF"
-        stroke-width="1.4"
+        strokeWidth="1.4"
       />
       <path
         d="M8 16.5L8 2.5"
         stroke="#377FFF"
-        stroke-width="1.4"
-        stroke-linecap="square"
+        strokeWidth="1.4"
+        strokeLinecap="square"
       />
       <path
         d="M3.5 5.09961L5.5 5.09961"
         stroke="#377FFF"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
-      <path d="M3.5 7.5L5.5 7.5" stroke="#377FFF" stroke-linecap="round" />
+      <path d="M3.5 7.5L5.5 7.5" stroke="#377FFF" strokeLinecap="round" />
       <path
         d="M3.5 9.89941L5.5 9.89941"
         stroke="#377FFF"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );

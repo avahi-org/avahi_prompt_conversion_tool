@@ -5,13 +5,11 @@ import type { GptOptionDataType } from '@/types/GptOptionDataType';
 import { colourStyles } from '@/utils/constant';
 
 import CopyTextButton from '../Button/CopyTextButton';
-import ShareButton from '../Button/ShareButton';
 import CloseIcon from '../Icons/CloseIcon';
 import LikeHardIcon from '../Icons/LikeHardIcon';
 import SendIcon from '../Icons/SendIcon';
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
-
 type InputChatProps = {
   className?: string;
   textareaClassName?: string;
@@ -35,7 +33,6 @@ type InputChatProps = {
   isLikeButton?: boolean;
   handleClear?: () => void;
 };
-
 const InputChat = ({
   className,
   options,
@@ -75,10 +72,9 @@ const InputChat = ({
           }}
           styles={colourStyles}
           placeholder="Select"
-          className="w-fit font-poppins text-base font-medium leading-6"
+          className="w-fit min-w-48 font-poppins text-base font-medium leading-6"
         />
       )}
-
       <div className={`flex ${height} flex-col justify-between`}>
         <h3 className="text-[36px] font-medium leading-[54px] text-black">
           {title}
@@ -87,7 +83,6 @@ const InputChat = ({
           {description}
         </p>
       </div>
-
       <div className="relative">
         <textarea
           className={`${textareaClassName} scrollbar-custom z-2 overflow-wrap break-word h-[348px]  max-h-[348px] min-h-[348px] w-full shrink-0 grow-0 resize-none self-center overflow-y-auto rounded-md border border-[#E2E0E5] bg-white p-6 ${
@@ -102,7 +97,6 @@ const InputChat = ({
           disabled={disabled}
           value={textareaValue}
         />
-
         {isCloseButton && (
           <button
             type="button"
@@ -113,26 +107,12 @@ const InputChat = ({
           </button>
         )}
       </div>
-
       <div className="flex items-center justify-center">
-        {/* <div className="flex items-center gap-1.5">
-          <button type="button">
-            <img src="/images/speackerImges.png" alt="image" />
-          </button>
-          <button type="button">
-            <img src="/images/likeImage.png" alt="image" />
-          </button>
-          <button type="button">
-            <img src="/images/disLikeImage.png" alt="image" />
-          </button>
-        </div> */}
-
         <div className="flex gap-2">
           <CopyTextButton textValue={copyText} />
-          <ShareButton />
+          {/* <ShareButton /> */}
         </div>
       </div>
-
       {isSend && (
         <div className="flex w-full items-center justify-end">
           <button
@@ -143,7 +123,6 @@ const InputChat = ({
           </button>
         </div>
       )}
-
       {isLikeButton && (
         <button type="button" className="flex w-full items-center justify-end">
           <LikeHardIcon />
@@ -152,5 +131,4 @@ const InputChat = ({
     </div>
   );
 };
-
 export default InputChat;

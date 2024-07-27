@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 import React, { useState } from 'react';
+import { CgLogOut } from 'react-icons/cg';
 
 import AchiveIcon from '@/components/Icons/AchiveIcon';
 import FrameActiveIcon from '@/components/Icons/FrameActiveIcon';
@@ -17,6 +18,7 @@ import { useSidebar } from '@/context';
 
 type SideBarProps = {
   childrens: ReactNode;
+  isAuth?: boolean;
 };
 
 const MENUBAR_PROPERTIES = [
@@ -24,7 +26,7 @@ const MENUBAR_PROPERTIES = [
     id: 1,
     activeIcon: <FrameActiveIcon />,
     disableIcon: <FrameIcon />,
-    path: '/',
+    path: '/auth',
     name: 'Prompt Conversion',
   },
   {
@@ -36,7 +38,7 @@ const MENUBAR_PROPERTIES = [
   },
 ];
 
-const SideBar = ({ childrens }: SideBarProps) => {
+const SideBar = ({ childrens, isAuth }: SideBarProps) => {
   const [modelIsOpen, setModelIsOpen] = useState(false);
   const { isOpen, setIsOpen } = useSidebar();
   const router = useRouter();
@@ -78,21 +80,60 @@ const SideBar = ({ childrens }: SideBarProps) => {
                 href={path}
                 className={`group flex w-full items-center justify-start border-l-2 px-3`}
               >
-                <div
-                  className={`${
-                    router?.asPath === path
-                      ? 'border-blue-30 bg-[#F1F8FB] text-blue-20'
-                      : 'border-transparent'
-                  } flex w-full items-center whitespace-nowrap rounded-lg border font-poppins text-sm font-normal leading-5 tracking-[-0.5%] group-hover:bg-[#F1F8FB]`}
-                >
-                  <div className={`${isOpen ? '' : 'mr-3'} duration-500`}>
-                    {router?.asPath === path ? activeIcon : disableIcon}
+                {(isAuth || id === 1) && (
+                  <div
+                    className={`${
+                      router?.asPath === path
+                        ? 'border-blue-30 bg-[#F1F8FB] text-blue-20'
+                        : 'border-transparent'
+                    } flex w-full items-center whitespace-nowrap rounded-lg border font-poppins text-sm font-normal leading-5 tracking-[-0.5%] group-hover:bg-[#F1F8FB]`}
+                  >
+                    <div className={`${isOpen ? '' : 'mr-3'} duration-500`}>
+                      {router?.asPath === path ? activeIcon : disableIcon}
+                    </div>
+                    <p>{name}</p>
                   </div>
-                  <p>{name}</p>
-                </div>
+                )}
               </Link>
             )
           )}
+          {
+            isAuth && (
+              <button
+                className="group flex w-full items-center justify-start border-l-2 px-3"
+                onClick={() => {
+                  const setCookie = (name: string, value: string) => {
+                    document.cookie = `${name}=${value}`;
+                  };
+
+                  setCookie('token', '');
+                  router.push('/free');
+                }}
+              >
+                <div className="flex w-full items-center gap-2 whitespace-nowrap rounded-lg p-2  font-poppins text-sm font-normal leading-5 tracking-[-0.5%] group-hover:bg-[#F1F8FB]">
+                  <div className={`${isOpen ? '' : 'mr-3'} duration-500`}>
+                    <CgLogOut size={25} />
+                  </div>
+                  <p>Logout</p>
+                </div>
+              </button>
+            )
+            // : (
+            // <button
+            //   className="group flex w-full items-center justify-start border-l-2 px-3"
+            //   onClick={() => {
+            //     router.push('/login');
+            //   }}
+            // >
+            //   <div className="flex w-full items-center gap-2 whitespace-nowrap rounded-lg p-2  font-poppins text-sm font-normal leading-5 tracking-[-0.5%] group-hover:bg-[#F1F8FB]">
+            //     <div className={`${isOpen ? '' : 'mr-3'} duration-500`}>
+            //       <CgLogOut size={25} className="rotate-180" />
+            //     </div>
+            //     <p>Login</p>
+            //   </div>
+            // </button>
+            // )
+          }
         </div>
       </div>
 

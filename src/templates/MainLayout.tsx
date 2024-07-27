@@ -7,6 +7,7 @@ type IMainProps = {
   meta: ReactNode;
   children: ReactNode;
   className?: string;
+  isAuth?: boolean;
 };
 
 const MainLayout = (props: IMainProps) => {
@@ -15,7 +16,7 @@ const MainLayout = (props: IMainProps) => {
       {props.meta}
 
       <div className="mx-auto w-full">
-        <SideBar childrens={props.children} />
+        <SideBar childrens={props.children} isAuth={props.isAuth} />
         <Footer />
       </div>
     </div>

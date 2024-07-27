@@ -9,8 +9,10 @@ module.exports = {
       inter: 'Inter',
       poppins: 'Poppins',
     },
-
     extend: {
+      screens: {
+        '2xl': '1320px',
+      },
       height: {
         14.5: '60px',
       },

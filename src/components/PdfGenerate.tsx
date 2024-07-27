@@ -7,7 +7,6 @@ type PdfGenerateProps = {
   handleClick: () => void;
   isLoad: boolean;
 };
-
 const PdfGenerate = ({ handleClick, isLoad }: PdfGenerateProps) => {
   // const options: Options = {
   //   filename: 'using-function.pdf',
@@ -15,12 +14,10 @@ const PdfGenerate = ({ handleClick, isLoad }: PdfGenerateProps) => {
   //     margin: 20,
   //   },
   // };
-
   // const getTargetElement = () => document.getElementById('target-main');
-
   // const downloadPdf = () => generatePDF(getTargetElement, options);
   return (
-    <div className="flex w-full items-center justify-between rounded-lg bg-blue-5 px-[84px] py-9">
+    <div className="flex w-full items-center justify-between gap-4 rounded-lg bg-blue-5 px-14 py-9 2xl:px-[84px]">
       <div className="flex flex-col gap-2">
         <h4 className="font-poppins text-2xl font-medium text-black">
           Looking to export your conversion?
@@ -41,5 +38,4 @@ const PdfGenerate = ({ handleClick, isLoad }: PdfGenerateProps) => {
     </div>
   );
 };
-
 export default PdfGenerate;

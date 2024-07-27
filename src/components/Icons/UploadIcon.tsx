@@ -10,7 +10,7 @@ const UploadIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect x="0.5" width="35" height="35" rx="17.5" fill="#D8E6FF" />
-      <g clip-path="url(#clip0_370_2263)">
+      <g clipPath="url(#clip0_370_2263)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"

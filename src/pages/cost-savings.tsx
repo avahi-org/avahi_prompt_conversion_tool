@@ -1,4 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import axios from 'axios';
+import type { GetServerSideProps } from 'next';
+import nookies from 'nookies';
 import React, { useState } from 'react';
 
 import CostSavingCart from '@/components/CostSavings/CostSavingCart';
@@ -89,7 +92,7 @@ const CostSavings = () => {
   };
 
   return (
-    <MainLayout meta={<Meta title="AVAHI" description="AVAHI" />}>
+    <MainLayout isAuth={true} meta={<Meta title="AVAHI" description="AVAHI" />}>
       <div className="flex flex-col gap-4 px-12">
         <UploadFile
           handleUploadFile={() => setFileModelOpen(true)}
@@ -131,3 +134,20 @@ const CostSavings = () => {
 };
 
 export default CostSavings;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const accessToken = nookies.get(ctx)?.token;
+
+  if (!accessToken) {
+    return {
+      redirect: {
+        source: ctx.req.url,
+        destination: `/login`,
+      },
+      props: {},
+    };
+  }
+  return {
+    props: {},
+  };
+};
