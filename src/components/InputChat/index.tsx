@@ -117,8 +117,9 @@ const InputChat = ({
         <div className="flex w-full items-center justify-end">
           <button
             type="submit"
-            className="rounded-xl border border-[#D8E6FF] text-[#EBF2FF] transition-all hover:text-[#BFD6FF]"
+            className="pz flex items-center gap-2.5 rounded-lg border border-blue-30 bg-blue-10 p-3 text-base leading-6 tracking-[-0.5%] text-blackDark-100 transition-all duration-300 hover:bg-[#BFD6FF]"
           >
+            <span>Convert prompts</span>
             <SendIcon />
           </button>
         </div>

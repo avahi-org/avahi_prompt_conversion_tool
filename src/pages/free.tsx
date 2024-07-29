@@ -3,17 +3,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useFormik } from 'formik';
 import type { GetServerSideProps } from 'next';
-import dynamic from 'next/dynamic';
 import nookies from 'nookies';
 import React, { useEffect, useState } from 'react';
 import { RiAiGenerate } from 'react-icons/ri';
 import * as Yup from 'yup';
 
+import QutionMarkIcon from '@/components/Icons/QutionMarkIcon';
 import InputChat from '@/components/InputChat';
 import SpinnerLoading from '@/components/Loader/SpinnerLoading';
+import ContentAiModel from '@/components/Models/ContentAiModel';
 import PdfGenerate from '@/components/PdfGenerate';
 import PriceSection from '@/components/PriceSection';
-import SingUpMessage from '@/components/SingUpMessage';
 import { Meta } from '@/layouts/Meta';
 import { MainLayout } from '@/templates/MainLayout';
 import type { BedrockPromptOptionDataType } from '@/types/BedrockPromptOptionDataType';
@@ -22,7 +22,6 @@ import {
   BEDROCK_PROMPT_OPTONS,
   GPT_PROMPT_OPTIONS,
   gptExamples,
-  selectColourStyles,
 } from '@/utils/constant';
 
 import getGenerateClaudeAnswerData from './api/getGenerateClaudeAnswerData';
@@ -30,7 +29,7 @@ import getGenerateCostData from './api/getGenerateCostData';
 import getGenerateGptData from './api/getGenerateGptData';
 import getGpttoClaudePromptConverterData from './api/getGpttoClaudePromptConverterData';
 
-const Select = dynamic(() => import('react-select'), { ssr: false });
+// const Select = dynamic(() => import('react-select'), { ssr: false });
 
 const Home = () => {
   const [price, setPrice] = useState<number | null>(null);
@@ -44,6 +43,7 @@ const Home = () => {
   const [bedrockText, setBedrockText] = useState('');
   const [showPdfGenerator, setShowPdfGenerator] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
+  const [modelIsOpen, setModelIsOpen] = useState(false);
 
   const [, setGptCunvertedData] = useState<any>(null);
   const [, setGptTimeDisplay] = useState<any>(null);
@@ -281,30 +281,46 @@ const Home = () => {
   return (
     <MainLayout meta={<Meta title="AVAHI" description="AVAHI" />}>
       <form
-        className="mx-auto flex w-full flex-col gap-9 px-6 pb-4"
+        className="mx-auto flex w-full flex-col gap-9 px-9 pt-6"
         onSubmit={handleSubmit}
         id="content-to-pdf"
       >
-        <div className="flex w-full items-center justify-between">
-          <Select
-            options={gptExamples}
-            components={{
-              IndicatorSeparator: () => null,
-            }}
-            onChange={(value: any) => {
-              const text = value?.value
-                ?.map(
-                  (item: any) =>
-                    `${item?.role?.toUpperCase()}\n${item?.content}\n\n`
-                )
-                .join('');
+        <div className="flex w-full flex-col gap-6">
+          <div className="flex items-center justify-between">
+            <h3 className="font-poppins text-xl font-medium leading-6 text-blackDark-100">
+              Select a GPT example to convert:
+            </h3>
 
-              setFieldValue('typeText', text);
-            }}
-            styles={selectColourStyles}
-            placeholder="Select GPT Example"
-            className="w-full max-w-[550px] font-poppins text-base font-medium leading-6"
-          />
+            <button type="button" onClick={() => setModelIsOpen(true)}>
+              <QutionMarkIcon />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-5 gap-2.5">
+            {gptExamples?.map(({ image, label, value }, index) => (
+              <button
+                type="button"
+                className="flex flex-col items-start gap-7 rounded-xl border border-blue-30 p-6 transition-all duration-300 hover:bg-blue-10"
+                key={index}
+                onClick={() => {
+                  const text = value
+                    ?.map(
+                      (item: any) =>
+                        `${item?.role?.toUpperCase()}\n${item?.content}\n\n`
+                    )
+                    .join('');
+
+                  setFieldValue('typeText', text);
+                }}
+              >
+                <img src={image} alt="icons" className="w-6 min-w-6" />
+
+                <p className="text-start font-poppins text-base font-normal tracking-[-0.5%] text-blackDark-100">
+                  {label}
+                </p>
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="grid grid-cols-2 rounded-lg shadow-card">
@@ -423,7 +439,8 @@ const Home = () => {
           </div>
         )}
       </form>
-      <SingUpMessage />
+      {/* <SingUpMessage /> */}
+      <ContentAiModel isOpen={modelIsOpen} setIsOpen={setModelIsOpen} />
 
       {isSubmitting && <SpinnerLoading />}
     </MainLayout>

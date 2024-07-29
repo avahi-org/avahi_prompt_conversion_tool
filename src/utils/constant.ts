@@ -114,6 +114,7 @@ export const generateCostApiURL =
 
 export const gptExamples = [
   {
+    image: '/images/studentImage.png',
     label: 'Generate responses as a Socratic tutor',
     value: [
       {
@@ -128,6 +129,7 @@ export const gptExamples = [
     ],
   },
   {
+    image: '/images/notesImage.png',
     label: 'Generate a company memo based on provided points',
     value: [
       {
@@ -138,6 +140,7 @@ export const gptExamples = [
     ],
   },
   {
+    image: '/images/iqImage.png',
     label: 'Generate product names from a description and seed words',
     value: [
       {
@@ -153,6 +156,7 @@ export const gptExamples = [
     ],
   },
   {
+    image: '/images/robotImage.png',
     label: 'Detect sentiment in a tweet',
     value: [
       {
@@ -167,6 +171,7 @@ export const gptExamples = [
     ],
   },
   {
+    image: '/images/searchImage.png',
     label: 'Extract keywords from a block of text',
     value: [
       {

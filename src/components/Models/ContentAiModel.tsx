@@ -38,7 +38,7 @@ const ContentAiModel = ({ isOpen, setIsOpen }: ContentAiModelProps) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed top-0 z-50 flex h-screen w-screen items-center justify-center bg-black/5 backdrop-blur-sm">
+        <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-black/5 backdrop-blur-sm">
           <div className="zoomIn w-full max-w-[800px] rounded-2xl bg-white p-8 shadow-card">
             <div className="flex h-6 items-center justify-end">
               <button onClick={() => setIsOpen(false)}>

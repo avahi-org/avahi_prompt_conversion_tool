@@ -2,14 +2,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 import React, { useState } from 'react';
-import { CgLogOut } from 'react-icons/cg';
 
-import AchiveIcon from '@/components/Icons/AchiveIcon';
 import FrameActiveIcon from '@/components/Icons/FrameActiveIcon';
 import FrameIcon from '@/components/Icons/FrameIcon';
 import LogoIcon from '@/components/Icons/LogoIcon';
-import QutionMarkIcon from '@/components/Icons/QutionMarkIcon';
-import SettingIcon from '@/components/Icons/SettingIcon';
 import SimICon from '@/components/Icons/SimICon';
 import StarSaveActiveIcon from '@/components/Icons/StarSaveActiveIcon';
 import StarSaveIcon from '@/components/Icons/StarSaveIcon';
@@ -21,7 +17,7 @@ type SideBarProps = {
   isAuth?: boolean;
 };
 
-const MENUBAR_PROPERTIES = [
+const MENUBAR = [
   {
     id: 1,
     activeIcon: <FrameActiveIcon />,
@@ -33,8 +29,18 @@ const MENUBAR_PROPERTIES = [
     id: 2,
     activeIcon: <StarSaveActiveIcon />,
     disableIcon: <StarSaveIcon />,
-    path: '/cost-savings',
+    path: '/multiprompt',
     name: 'Multi-prompt conversion',
+  },
+];
+
+const AUTH_MENUBAR = [
+  {
+    id: 1,
+    activeIcon: <FrameActiveIcon />,
+    disableIcon: <FrameIcon />,
+    path: '/free',
+    name: 'Prompt Conversion',
   },
 ];
 
@@ -42,6 +48,7 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
   const [modelIsOpen, setModelIsOpen] = useState(false);
   const { isOpen, setIsOpen } = useSidebar();
   const router = useRouter();
+  const MENUBAR_PROPERTIES = isAuth ? MENUBAR : AUTH_MENUBAR;
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -97,7 +104,7 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
               </Link>
             )
           )}
-          {
+          {/* {
             isAuth && (
               <button
                 className="group flex w-full items-center justify-start border-l-2 px-3"
@@ -118,35 +125,35 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
                 </div>
               </button>
             )
-            // : (
-            // <button
-            //   className="group flex w-full items-center justify-start border-l-2 px-3"
-            //   onClick={() => {
-            //     router.push('/login');
-            //   }}
-            // >
-            //   <div className="flex w-full items-center gap-2 whitespace-nowrap rounded-lg p-2  font-poppins text-sm font-normal leading-5 tracking-[-0.5%] group-hover:bg-[#F1F8FB]">
-            //     <div className={`${isOpen ? '' : 'mr-3'} duration-500`}>
-            //       <CgLogOut size={25} className="rotate-180" />
-            //     </div>
-            //     <p>Login</p>
-            //   </div>
-            // </button>
-            // )
-          }
+            : (
+            <button
+              className="group flex w-full items-center justify-start border-l-2 px-3"
+              onClick={() => {
+                router.push('/login');
+              }}
+            >
+              <div className="flex w-full items-center gap-2 whitespace-nowrap rounded-lg p-2  font-poppins text-sm font-normal leading-5 tracking-[-0.5%] group-hover:bg-[#F1F8FB]">
+                <div className={`${isOpen ? '' : 'mr-3'} duration-500`}>
+                  <CgLogOut size={25} className="rotate-180" />
+                </div>
+                <p>Login</p>
+              </div>
+            </button>
+            )
+          } */}
         </div>
       </div>
 
       <div className="w-full">
-        <div className="mb-1 w-full px-6">
-          <div className="flex items-center justify-between border-b border-gray-10 py-6">
+        <div className="mb-1  w-full px-6">
+          <div className="flex h-[90px] items-center justify-between border-b border-gray-10 py-6">
             <div className="flex items-center gap-4 pl-6">
               <h2 className="font-poppins text-xl font-semibold text-blue-20">
                 OpenAI to Bedrock Converter
               </h2>
             </div>
 
-            <div className="flex items-center gap-4 px-6">
+            {/* <div className="flex items-center gap-4 px-6">
               <button type="button">
                 <AchiveIcon />
               </button>
@@ -156,7 +163,30 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
               <button type="button" onClick={() => setModelIsOpen(true)}>
                 <QutionMarkIcon />
               </button>
-            </div>
+            </div> */}
+
+            {isAuth ? (
+              <button
+                onClick={() => {
+                  const setCookie = (name: string, value: string) => {
+                    document.cookie = `${name}=${value}`;
+                  };
+
+                  setCookie('token', '');
+                  router.push('/free');
+                }}
+                className="rounded-md bg-blue-20 px-3 py-2 font-poppins text-base font-medium leading-5 text-white transition-all duration-300 hover:bg-blue-50"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                href={'/login'}
+                className="rounded-md bg-blue-20 px-3 py-2 font-poppins text-base font-medium leading-5 text-white transition-all duration-300 hover:bg-blue-50"
+              >
+                Sign in
+              </Link>
+            )}
           </div>
         </div>
 
