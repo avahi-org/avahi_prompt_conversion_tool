@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import FrameActiveIcon from '@/components/Icons/FrameActiveIcon';
 import FrameIcon from '@/components/Icons/FrameIcon';
@@ -23,7 +23,7 @@ const MENUBAR = [
     activeIcon: <FrameActiveIcon />,
     disableIcon: <FrameIcon />,
     path: '/auth',
-    name: 'Prompt Conversion',
+    name: 'Single Prompt Conversion',
   },
   {
     id: 2,
@@ -40,15 +40,26 @@ const AUTH_MENUBAR = [
     activeIcon: <FrameActiveIcon />,
     disableIcon: <FrameIcon />,
     path: '/free',
-    name: 'Prompt Conversion',
+    name: 'Single Prompt Conversion',
   },
 ];
 
 const SideBar = ({ childrens, isAuth }: SideBarProps) => {
   const [modelIsOpen, setModelIsOpen] = useState(false);
+  const [headerTitle, setHeaderTitle] = useState(
+    'Demo - Strategic Model Assessment and Review Tool (S.M.A.R.T.)'
+  );
   const { isOpen, setIsOpen } = useSidebar();
   const router = useRouter();
   const MENUBAR_PROPERTIES = isAuth ? MENUBAR : AUTH_MENUBAR;
+
+  useEffect(() => {
+    if (router && router?.asPath === '/auth') {
+      setHeaderTitle(
+        ' Strategic Model Assessment and Review Tool (S.M.A.R.T.)'
+      );
+    }
+  }, [headerTitle]);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -67,7 +78,7 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
               <LogoIcon />
             </button>
             <p className="whitespace-nowrap py-[5px] pl-3 font-poppins text-xl font-semibold leading-7 tracking-[-2%] text-blue-20">
-              Avahi AI
+              SMART
             </p>
           </div>
           <button
@@ -85,7 +96,7 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
               <Link
                 key={id}
                 href={path}
-                className={`group flex w-full items-center justify-start border-l-2 px-3`}
+                className={`group flex w-full items-center justify-start border-l-2 px-1`}
               >
                 {(isAuth || id === 1) && (
                   <div
@@ -149,7 +160,7 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
           <div className="flex h-[90px] items-center justify-between border-b border-gray-10 py-6">
             <div className="flex items-center gap-4 pl-6">
               <h2 className="font-poppins text-xl font-semibold text-blue-20">
-                OpenAI to Bedrock Converter
+                {headerTitle}
               </h2>
             </div>
 
