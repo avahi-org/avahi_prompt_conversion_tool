@@ -6,9 +6,11 @@ import React, { useEffect, useState } from 'react';
 import FrameActiveIcon from '@/components/Icons/FrameActiveIcon';
 import FrameIcon from '@/components/Icons/FrameIcon';
 import LogoIcon from '@/components/Icons/LogoIcon';
+import MenuIcon from '@/components/Icons/MenuIcon';
 import SimICon from '@/components/Icons/SimICon';
 import StarSaveActiveIcon from '@/components/Icons/StarSaveActiveIcon';
 import StarSaveIcon from '@/components/Icons/StarSaveIcon';
+import MenuBar from '@/components/Menubar';
 import ContentAiModel from '@/components/Models/ContentAiModel';
 import { useSidebar } from '@/context';
 
@@ -46,6 +48,7 @@ const AUTH_MENUBAR = [
 
 const SideBar = ({ childrens, isAuth }: SideBarProps) => {
   const [modelIsOpen, setModelIsOpen] = useState(false);
+  const [isHamburger, setIsHamburger] = useState(false);
   const [headerTitle, setHeaderTitle] = useState(
     'Demo - Strategic Model Assessment and Review Tool (S.M.A.R.T.)'
   );
@@ -66,7 +69,7 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
       <div
         className={`h-full ${
           !isOpen ? 'w-[68px]' : 'w-[292px]'
-        } overflow-hidden border-r border-gray-10 duration-500`}
+        } hidden overflow-hidden border-r border-gray-10 duration-500 lg:block`}
       >
         <div className="flex w-full items-center justify-between border-b border-gray-10 px-3 py-6">
           <div className="flex items-center">
@@ -158,7 +161,7 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
       </div>
 
       <div className="w-full">
-        <div className="mb-1  w-full px-6">
+        <div className="mb-1 hidden w-full px-6 lg:block">
           <div className="flex h-[90px] items-center justify-between border-b border-gray-10 py-6">
             <div className="flex items-center gap-4 pl-6">
               <h2 className="font-poppins text-xl font-semibold text-blue-20">
@@ -203,10 +206,37 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
           </div>
         </div>
 
+        <div className="flex w-full items-center justify-between border-b border-blue-30 bg-white px-5 py-3 lg:hidden">
+          <div className="flex items-center">
+            <button>
+              <LogoIcon />
+            </button>
+            <p className="whitespace-nowrap py-[5px] pl-3 font-poppins text-xl font-semibold leading-7 tracking-[-2%] text-blue-20">
+              SMART
+            </p>
+          </div>
+
+          <button
+            onClick={() => setIsHamburger(true)}
+            className="flex h-full items-center text-white lg:hidden"
+          >
+            <MenuIcon />
+          </button>
+        </div>
+
         <main className="h-[calc(100vh-90px)] overflow-y-auto  pb-10 pt-4">
           {childrens}
         </main>
       </div>
+
+      {isHamburger && (
+        <MenuBar
+          setIsHamburger={setIsHamburger}
+          menu={MENUBAR_PROPERTIES}
+          isAuth={isAuth}
+          headerTitle={headerTitle}
+        />
+      )}
 
       <ContentAiModel isOpen={modelIsOpen} setIsOpen={setModelIsOpen} />
     </div>

@@ -48,12 +48,13 @@ const PriceSection = ({
   return (
     <>
       {price && (
-        <div className="flex w-1/2 flex-col gap-6">
-          <div className="flex items-center justify-between">
+        <div className="flex w-full flex-col gap-6 1140:w-1/2">
+          <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
             <h3 className="font-poppins  text-xl font-medium leading-8 text-black 2xl:text-2xl">
               {title}
             </h3>
-            <div className="flex items-center gap-3">
+
+            <div className="flex w-full items-center justify-between gap-3 sm:w-auto sm:justify-normal">
               <span className="whitespace-nowrap  font-poppins  text-base font-medium text-gray-150">
                 Cost of running
               </span>
@@ -62,7 +63,7 @@ const PriceSection = ({
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div
               className={`flex cursor-pointer flex-col gap-5 rounded-xl border ${
                 isGreenText

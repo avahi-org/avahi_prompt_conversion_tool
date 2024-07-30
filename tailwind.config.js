@@ -12,6 +12,8 @@ module.exports = {
     extend: {
       screens: {
         '2xl': '1320px',
+        1140: '1140px',
+        sm: '500px',
       },
       height: {
         14.5: '60px',
@@ -40,7 +42,7 @@ module.exports = {
           50: '#F9FAFB',
           75: '#737373',
           100: '#616161',
-          150: ' #A1A1A1',
+          150: '#A1A1A1',
           1000: '#fafafa',
         },
         redLight: {

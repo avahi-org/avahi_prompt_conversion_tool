@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable no-console */
 /* eslint-disable new-cap */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react-hooks/rules-of-hooks */
@@ -283,13 +284,13 @@ const Home = () => {
   return (
     <MainLayout meta={<Meta title="AVAHI" description="AVAHI" />}>
       <form
-        className="mx-auto flex w-full flex-col gap-9 px-9 pt-6"
+        className="mx-auto flex w-full flex-col gap-9 px-5 pt-0 lg:px-9 lg:pt-6"
         onSubmit={handleSubmit}
         id="content-to-pdf"
       >
         <div className="flex w-full flex-col gap-6">
           <div className="flex items-center justify-between">
-            <h3 className="font-poppins text-xl font-medium leading-6 text-blackDark-100">
+            <h3 className="font-poppins text-lg font-medium leading-6 text-blackDark-100 sm:text-xl">
               GPT example to convert:
             </h3>
 
@@ -298,7 +299,7 @@ const Home = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-5 gap-2.5">
+          <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {gptExamples?.map(({ image, label, value }, index) => (
               <button
                 type="submit"
@@ -336,9 +337,9 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 rounded-lg shadow-card">
+        <div className="grid rounded-lg shadow-card lg:grid-cols-2">
           <InputChat
-            className="rounded-l-xl bg-white pr-[64px] "
+            className="rounded-t-xl bg-white lg:rounded-l-xl lg:pr-[64px] "
             options={GPT_PROMPT_OPTIONS}
             defaultValue={selectedGptData}
             selectChange={(value: any) => {
@@ -350,7 +351,7 @@ const Home = () => {
             handleClear={() => setFieldValue('typeText', '')}
             title="OpenAI"
             textareaId="typeText"
-            height="h-[100px]"
+            height="lg:h-[100px]"
             textareaName="typeText"
             textareaOnChange={handleChange}
             textareaValue={values?.typeText}
@@ -362,7 +363,7 @@ const Home = () => {
           />
 
           <InputChat
-            className="rounded-r-xl bg-blue-10/75 pl-[64px]"
+            className="rounded-b-xl bg-blue-10/75 lg:rounded-r-xl lg:pl-[64px]"
             defaultValue={selectedBedrockData}
             options={BEDROCK_PROMPT_OPTONS}
             selectChange={(value: any) => {
@@ -375,7 +376,7 @@ const Home = () => {
             textareaValue={values?.outputText}
             copyText={values?.outputText}
             disabled={!values?.outputText}
-            height="h-[100px]"
+            height="lg:h-[100px]"
             title="Bedrock"
             textareaId="outputText"
             textareaName="outputText"
@@ -397,10 +398,10 @@ const Home = () => {
         )}
 
         {(values?.bedrockOutput || values?.gptText) && !isSubmitting && (
-          <div className="grid grid-cols-2 rounded-lg border  border-gray-10 shadow-card">
+          <div className="grid rounded-lg border border-gray-10  shadow-card lg:grid-cols-2">
             {values?.gptText && (
               <InputChat
-                className="rounded-l-xl border-r border-gray-10 "
+                className="rounded-t-xl border-b border-gray-10 lg:rounded-l-xl lg:border-r"
                 isText={true}
                 selectedText={gptText}
                 textareaOnChange={handleChange}
@@ -415,7 +416,7 @@ const Home = () => {
 
             {values?.bedrockOutput && (
               <InputChat
-                className="rounded-r-xl "
+                className="rounded-b-xl lg:rounded-r-xl"
                 isText={true}
                 selectedText={bedrockText}
                 textareaOnChange={handleChange}
@@ -435,7 +436,7 @@ const Home = () => {
         )}
 
         {(price || bedrockPrice) && !isSubmitting && (
-          <div className="flex gap-7 2xl:gap-16">
+          <div className="flex flex-col gap-7 gap-y-10 1140:flex-row 2xl:gap-16">
             <PriceSection
               title="OpenAI Pricing"
               price={price}

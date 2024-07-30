@@ -56,7 +56,7 @@ const InputChat = ({
   handleClear,
 }: InputChatProps) => {
   return (
-    <div className={`px-9  py-6 ${className} flex flex-col gap-6`}>
+    <div className={`px-5 py-6  sm:px-9 ${className} flex flex-col gap-6`}>
       {isText ? (
         <h3 className="w-fit rounded-lg border border-blue-10 bg-blue-30 p-2 font-poppins text-base font-medium leading-6 text-blue-40">
           {selectedText}
@@ -75,7 +75,7 @@ const InputChat = ({
         />
       )}
       <div className={`flex ${height} flex-col justify-between`}>
-        <h3 className="text-[36px] font-medium leading-[54px] text-black">
+        <h3 className="text-3xl font-medium leading-[54px] text-black md:text-[36px]">
           {title}
         </h3>
         <p className="font-poppins text-sm font-medium leading-5 text-gray-150">
@@ -106,16 +106,19 @@ const InputChat = ({
           </button>
         )}
       </div>
-      <div className="flex items-center justify-center gap-2">
-        {isSend && <div className="w-full" />}
+      <div className="flex flex-col items-center justify-center gap-2 gap-y-3 xl:flex-row">
+        {isSend && <div className="hidden w-full xl:block" />}
         <div
-          className={`${isSend ? 'w-full' : ''} flex gap-2 whitespace-nowrap`}
+          className={`${
+            isSend ? 'xl:w-full' : ''
+          } flex gap-2 whitespace-nowrap`}
         >
           <CopyTextButton textValue={copyText} />
           {/* <ShareButton /> */}
         </div>
+
         {isSend && (
-          <div className="flex w-full items-center justify-end whitespace-nowrap">
+          <div className="flex items-center justify-end whitespace-nowrap xl:w-full">
             <button
               type="submit"
               className="pz flex items-center gap-2.5 rounded-lg border border-blue-30 bg-blue-10 p-3 text-base leading-6 tracking-[-0.5%] text-blackDark-100 transition-all duration-300 hover:bg-[#BFD6FF]"
