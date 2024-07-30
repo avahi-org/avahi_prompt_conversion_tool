@@ -4,7 +4,7 @@ import type { GptOptionDataType } from '@/types/GptOptionDataType';
 export const GPT_PROMPT_OPTIONS: GptOptionDataType[] = [
   { id: 1, value: 'gpt-3.5', label: 'Gpt 3.5' },
   { id: 2, value: 'gpt-4', label: 'Gpt 4' },
-  { id: 3, value: 'gpt-4o', label: 'Gpt 4o' },
+  // { id: 3, value: 'gpt-4o', label: 'Gpt 4o' },
   { id: 3, value: 'gpt-4-turbo', label: 'Gpt 4 Turbo' },
 ];
 
