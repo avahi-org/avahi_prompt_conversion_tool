@@ -106,7 +106,9 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
                         : 'border-transparent'
                     } flex w-full items-center whitespace-nowrap rounded-lg border font-poppins text-sm font-normal leading-5 tracking-[-0.5%] group-hover:bg-[#F1F8FB]`}
                   >
-                    <div className={`${isOpen ? '' : 'mr-3'} duration-500`}>
+                    <div
+                      className={`${isOpen ? '' : 'ml-1.5 mr-3'} duration-500`}
+                    >
                       {router?.asPath === path ? activeIcon : disableIcon}
                     </div>
                     <p>{name}</p>

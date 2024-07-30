@@ -6,7 +6,6 @@ import { colourStyles } from '@/utils/constant';
 
 import CopyTextButton from '../Button/CopyTextButton';
 import CloseIcon from '../Icons/CloseIcon';
-import LikeHardIcon from '../Icons/LikeHardIcon';
 import SendIcon from '../Icons/SendIcon';
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
@@ -107,28 +106,34 @@ const InputChat = ({
           </button>
         )}
       </div>
-      <div className="flex items-center justify-center">
-        <div className="flex gap-2">
+      <div className="flex items-center justify-center gap-2">
+        {isSend && <div className="w-full" />}
+        <div
+          className={`${isSend ? 'w-full' : ''} flex gap-2 whitespace-nowrap`}
+        >
           <CopyTextButton textValue={copyText} />
           {/* <ShareButton /> */}
         </div>
-      </div>
-      {isSend && (
-        <div className="flex w-full items-center justify-end">
+        {isSend && (
+          <div className="flex w-full items-center justify-end whitespace-nowrap">
+            <button
+              type="submit"
+              className="pz flex items-center gap-2.5 rounded-lg border border-blue-30 bg-blue-10 p-3 text-base leading-6 tracking-[-0.5%] text-blackDark-100 transition-all duration-300 hover:bg-[#BFD6FF]"
+            >
+              <span>Convert prompts</span>
+              <SendIcon />
+            </button>
+          </div>
+        )}
+        {/* {isLikeButton && (
           <button
-            type="submit"
-            className="pz flex items-center gap-2.5 rounded-lg border border-blue-30 bg-blue-10 p-3 text-base leading-6 tracking-[-0.5%] text-blackDark-100 transition-all duration-300 hover:bg-[#BFD6FF]"
+            type="button"
+            className="flex w-full items-center justify-end"
           >
-            <span>Convert prompts</span>
-            <SendIcon />
+            <LikeHardIcon />
           </button>
-        </div>
-      )}
-      {isLikeButton && (
-        <button type="button" className="flex w-full items-center justify-end">
-          <LikeHardIcon />
-        </button>
-      )}
+        )} */}
+      </div>
     </div>
   );
 };

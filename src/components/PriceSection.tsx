@@ -101,7 +101,7 @@ const PriceSection = ({
                 )}
               </span>
             </div>
-            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-4 transition-all hover:bg-white 2xl:p-6">
+            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[#D8E6FF] bg-blue-10 p-4 transition-all  hover:bg-white 2xl:p-6">
               <span className="font-poppins text-base font-medium text-black">
                 Input Token Cost
               </span>
@@ -123,7 +123,7 @@ const PriceSection = ({
                 )}
               </span>
             </div>
-            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-4 transition-all hover:bg-white 2xl:p-6">
+            <div className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[#D8E6FF] bg-blue-10 p-4 transition-all  hover:bg-white 2xl:p-6">
               <span className="font-poppins text-base font-medium text-black">
                 Time Taken
               </span>
@@ -146,7 +146,7 @@ const PriceSection = ({
               </span>
             </div>
             <div
-              className={`group flex cursor-pointer flex-col gap-5 rounded-xl border border-[D8E6FF] bg-blue-10 p-4 transition-all hover:bg-white  2xl:p-6`}
+              className={`group flex cursor-pointer flex-col gap-5 rounded-xl border border-[#D8E6FF] bg-blue-10 p-4 transition-all  hover:bg-white  2xl:p-6`}
             >
               <span className="font-poppins text-base font-medium text-black">
                 Output Token Cost

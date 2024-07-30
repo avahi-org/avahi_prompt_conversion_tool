@@ -12,6 +12,7 @@ const CopyTextButton = ({ textValue }: CopyTextButtonProps) => {
   return (
     <div className="flex w-fit items-center justify-between rounded-lg transition-all hover:bg-blue-20">
       <button
+        disabled={isCopied === 'Copied!'}
         className="z-30 flex items-center gap-1.5 rounded-lg  border border-blue-20 px-2 py-1.5 font-poppins text-base font-medium leading-6 text-blue-20 transition-all hover:text-white"
         type="button"
         onClick={() => {
@@ -20,7 +21,7 @@ const CopyTextButton = ({ textValue }: CopyTextButtonProps) => {
             setIsCopied('Copied!');
             setTimeout(() => {
               setIsCopied('Copy to Clipboard');
-            }, 1000);
+            }, 2000);
           }
         }}
       >

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable new-cap */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react-hooks/rules-of-hooks */
@@ -41,6 +42,7 @@ const Home = () => {
   const [bedrockTimeDisplay, setBedrockTimeDisplay] = useState<any>(null);
   const [gptText, setGptText] = useState('');
   const [bedrockText, setBedrockText] = useState('');
+  const [selectedGptExamples, setSelectedGptExamples] = useState('');
   const [showPdfGenerator, setShowPdfGenerator] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
   const [modelIsOpen, setModelIsOpen] = useState(false);
@@ -288,7 +290,7 @@ const Home = () => {
         <div className="flex w-full flex-col gap-6">
           <div className="flex items-center justify-between">
             <h3 className="font-poppins text-xl font-medium leading-6 text-blackDark-100">
-              Select a GPT example to convert:
+              GPT example to convert:
             </h3>
 
             <button type="button" onClick={() => setModelIsOpen(true)}>
@@ -299,10 +301,15 @@ const Home = () => {
           <div className="grid grid-cols-5 gap-2.5">
             {gptExamples?.map(({ image, label, value }, index) => (
               <button
-                type="button"
-                className="flex flex-col items-start gap-7 rounded-xl border border-blue-30 p-6 transition-all duration-300 hover:bg-blue-10"
+                type="submit"
+                className={`${
+                  selectedGptExamples === label
+                    ? 'border-blue-20 bg-blue-30'
+                    : 'border-blue-30'
+                } group flex flex-col items-start gap-7 rounded-xl border  p-6 transition-all duration-300 hover:border-blue-20 hover:bg-blue-30`}
                 key={index}
-                onClick={() => {
+                onClick={async () => {
+                  setSelectedGptExamples(label);
                   const text = value
                     ?.map(
                       (item: any) =>
@@ -315,7 +322,13 @@ const Home = () => {
               >
                 <img src={image} alt="icons" className="w-6 min-w-6" />
 
-                <p className="text-start font-poppins text-base font-normal tracking-[-0.5%] text-blackDark-100">
+                <p
+                  className={`${
+                    selectedGptExamples === label
+                      ? 'text-blue-20'
+                      : 'text-blackDark-100'
+                  } group-hover: text-start font-poppins text-base font-normal  tracking-[-0.5%]`}
+                >
                   {label}
                 </p>
               </button>
@@ -328,7 +341,11 @@ const Home = () => {
             className="rounded-l-xl bg-white pr-[64px] "
             options={GPT_PROMPT_OPTIONS}
             defaultValue={selectedGptData}
-            selectChange={(value: any) => setSelectedGptData(value as any)}
+            selectChange={(value: any) => {
+              setSelectedGptData(value as any);
+              handleSubmit();
+              // handleGenerateOutput();
+            }}
             isCloseButton={!!values?.typeText}
             handleClear={() => setFieldValue('typeText', '')}
             title="OpenAI"
@@ -348,8 +365,10 @@ const Home = () => {
             className="rounded-r-xl bg-blue-10/75 pl-[64px]"
             defaultValue={selectedBedrockData}
             options={BEDROCK_PROMPT_OPTONS}
-            selectChange={(value) => {
+            selectChange={(value: any) => {
               setSelectedBedrockData(value as any);
+              handleSubmit();
+              // handleGenerateOutput();
             }}
             isLikeButton={!!values?.outputText}
             textareaOnChange={handleChange}
