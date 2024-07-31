@@ -7,7 +7,7 @@ import PriceDropDown from './PriceDropDown';
 
 const CostTable = () => {
   return (
-    <table className="w-full overflow-y-hidden">
+    <table className="w-full min-w-[1140px] overflow-y-hidden overflow-x-scroll">
       <thead className="sticky top-0 ">
         <tr className="flex justify-between gap-9 bg-white pb-2">
           {jsonData?.header?.map((item, index) => (

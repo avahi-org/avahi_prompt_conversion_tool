@@ -12,10 +12,10 @@ const CostSavingCart = ({ className, isCostSaving }: CostSavingCartProps) => {
         COST SAVINGS
       </h4>
 
-      <div className="flex items-end justify-between">
+      <div className="flex flex-col items-start justify-between gap-y-4 md:flex-row md:items-end">
         <div className="flex items-center gap-9">
           <div className="flex flex-col gap-1">
-            <span className="font-poppins text-4xl font-semibold text-greenLight-20">
+            <span className="font-poppins text-3xl font-semibold text-greenLight-20 sm:text-4xl">
               $1000
             </span>
             <span className="font-poppins text-sm font-normal text-gray-75">
@@ -24,7 +24,7 @@ const CostSavingCart = ({ className, isCostSaving }: CostSavingCartProps) => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="font-poppins text-4xl font-semibold text-greenLight-20">
+            <span className="font-poppins text-3xl font-semibold text-greenLight-20 sm:text-4xl">
               50m
             </span>
             <span className="font-poppins text-sm font-normal text-gray-75">
@@ -33,7 +33,7 @@ const CostSavingCart = ({ className, isCostSaving }: CostSavingCartProps) => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="font-poppins text-4xl font-semibold text-greenLight-20">
+            <span className="font-poppins text-3xl font-semibold text-greenLight-20 sm:text-4xl">
               50m
             </span>
             <span className="font-poppins text-sm font-normal text-gray-75">

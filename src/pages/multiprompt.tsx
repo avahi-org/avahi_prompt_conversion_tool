@@ -94,21 +94,21 @@ const CostSavings = () => {
 
   return (
     <MainLayout isAuth={true} meta={<Meta title="AVAHI" description="AVAHI" />}>
-      <div className="flex flex-col gap-4 px-12">
+      <div className="flex flex-col gap-4 px-5 lg:px-12">
         <UploadFile
           handleUploadFile={() => setFileModelOpen(true)}
           isGenerateBtn={isGenerateBtn}
           handleGenerateOutput={handleGenerateOutput}
         />
 
-        <div className="px-6">
+        <div className="lg:px-6">
           <CostSavingCart
             className="border-b-2 border-gray-10 pb-4"
             isCostSaving={true}
           />
         </div>
 
-        <div className="table-scrollbar min-[1490px] relative max-h-[440px] overflow-hidden overflow-y-auto px-6">
+        <div className="table-scrollbar relative max-h-[440px] overflow-auto px-0 pr-6 lg:px-6">
           {/* <CostNoDataTable /> */}
           <CostTable />
         </div>

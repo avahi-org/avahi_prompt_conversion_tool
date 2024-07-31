@@ -10,12 +10,12 @@ type GenerateReportProps = {
 
 const GenerateReport = ({ handleClick, isLoad }: GenerateReportProps) => {
   return (
-    <div className="flex w-full items-center justify-between rounded-lg bg-blue-5 px-[84px] py-9">
+    <div className="flex w-full flex-col items-center justify-between gap-4 rounded-lg bg-blue-5 px-5 py-9 md:flex-row md:px-14 2xl:px-[84px]">
       <div className="flex flex-col gap-2">
-        <h4 className="font-poppins text-2xl font-medium text-black">
+        <h4 className="font-poppins text-xl font-medium text-black sm:text-2xl">
           Looking to export your conversion?
         </h4>
-        <p className="font-poppins text-base font-medium text-gray-75">
+        <p className="font-poppins text-sm font-medium text-gray-75 sm:text-base">
           Conversions and conversion history are available to download as a
           generated report
         </p>

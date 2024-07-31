@@ -65,10 +65,10 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
   }, [headerTitle]);
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen w-full overflow-hidden">
       <div
         className={`h-full ${
-          !isOpen ? 'w-[68px]' : 'w-[292px]'
+          !isOpen ? 'w-[64px]' : 'w-[292px]'
         } hidden overflow-hidden border-r border-gray-10 duration-500 lg:block`}
       >
         <div className="flex w-full items-center justify-between border-b border-gray-10 px-3 py-6">
@@ -160,7 +160,13 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
         </div>
       </div>
 
-      <div className="w-full">
+      <div
+        className={`w-full ${
+          isOpen
+            ? 'lg:w-[calc(100%-292px)] lg:transition-all lg:duration-500'
+            : ' lg:w-[calc(100%-64px)] '
+        } `}
+      >
         <div className="mb-1 hidden w-full px-6 lg:block">
           <div className="flex h-[90px] items-center justify-between border-b border-gray-10 py-6">
             <div className="flex items-center gap-4 pl-6">
@@ -224,7 +230,7 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
           </button>
         </div>
 
-        <main className="h-[calc(100vh-90px)] overflow-y-auto  pb-10 pt-4">
+        <main className="h-[calc(100vh-90px)] w-full overflow-y-auto overflow-x-hidden  pb-10 pt-4">
           {childrens}
         </main>
       </div>

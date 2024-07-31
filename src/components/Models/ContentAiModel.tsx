@@ -38,8 +38,8 @@ const ContentAiModel = ({ isOpen, setIsOpen }: ContentAiModelProps) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-black/5 backdrop-blur-sm">
-          <div className="zoomIn w-full max-w-[800px] rounded-2xl bg-white p-8 shadow-card">
+        <div className="fixed left-0 top-0 z-[9999]  flex h-screen w-screen items-center justify-center bg-black/5 backdrop-blur-sm">
+          <div className="zoomIn max-h-[calc(100vh-30px)] w-full max-w-[800px] overflow-y-auto rounded-2xl bg-white px-5 py-8 shadow-card md:px-8">
             <div className="flex h-6 items-center justify-end">
               <button onClick={() => setIsOpen(false)}>
                 <CloseIcon />
@@ -47,13 +47,13 @@ const ContentAiModel = ({ isOpen, setIsOpen }: ContentAiModelProps) => {
             </div>
 
             <div className="flex flex-col gap-6">
-              <div className="flex gap-8">
+              <div className="flex flex-col gap-8 md:flex-row">
                 <div className="flex w-full flex-col gap-3">
                   <h3 className="mt-6 w-full text-center font-poppins text-xl font-medium text-redLight-20">
                     Standard LLM Architecture
                   </h3>
 
-                  <div className="flex flex-col gap-5 rounded-2xl border-2 border-redLight-10 px-4 py-8">
+                  <div className="flex flex-col gap-5 rounded-2xl border-2 border-redLight-10 p-8 px-4">
                     {STANDARD_LLM_ARCHITECTURE?.map((item, index) => (
                       <div
                         key={index}
@@ -71,6 +71,7 @@ const ContentAiModel = ({ isOpen, setIsOpen }: ContentAiModelProps) => {
                     ))}
                   </div>
                 </div>
+
                 <div className="flex w-full flex-col gap-3">
                   <div className="flex w-full flex-col items-center justify-center gap-1">
                     <div className="flex items-center justify-center gap-2">
@@ -88,14 +89,14 @@ const ContentAiModel = ({ isOpen, setIsOpen }: ContentAiModelProps) => {
                     {AVAHI_AI?.map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-4 rounded-md p-2 transition-all hover:bg-[#D5F7D8]"
+                        className="flex cursor-pointer items-center gap-4 rounded-md p-2 transition-all hover:bg-[#D5F7D8]"
                       >
                         <img
                           src="/images/SmileEmoji.png"
                           alt="sadEmoji"
                           className="size-[25px]"
                         />
-                        <p className="whitespace-nowrap font-poppins text-sm font-medium text-black">
+                        <p className="font-poppins text-sm font-medium text-black md:whitespace-nowrap">
                           {item}
                         </p>
                       </div>

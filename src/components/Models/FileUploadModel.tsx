@@ -151,7 +151,7 @@ const FileUploadModel = ({
           aria-modal="true"
           role="dialog"
         >
-          <div className="zoomIn relative w-full  max-w-[580px] rounded-2xl shadow-primaryBox">
+          <div className="zoomIn relative max-h-[calc(100vh-30px)] w-full max-w-[580px]  overflow-y-auto rounded-2xl shadow-primaryBox">
             <div className="flex w-full flex-col gap-6 rounded-t-2xl bg-white p-6 shadow-card">
               <div className="flex items-center justify-between">
                 <h2 className="font-poppins text-2xl font-medium leading-9 text-black">
@@ -174,9 +174,9 @@ const FileUploadModel = ({
                     {renderFileList()}
                   </div>
 
-                  <div className="flex w-full items-center justify-between gap-2">
-                    <div className="flex items-center gap-3">
-                      <span className="font-poppins text-sm leading-5 text-black">
+                  <div className="flex w-full flex-col items-start justify-between gap-2 sm:flex-row">
+                    <div className="flex w-full items-center gap-3">
+                      <span className="min-w-[100px] whitespace-nowrap font-poppins text-sm leading-5 text-black sm:w-auto sm:min-w-min">
                         Convert from:
                       </span>
                       <Select
@@ -188,12 +188,12 @@ const FileUploadModel = ({
                         }}
                         styles={colourStyles}
                         placeholder="Select"
-                        className="w-fit font-poppins text-base font-medium leading-6"
+                        className="w-full font-poppins text-base font-medium leading-6 sm:w-fit"
                       />
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <span className="font-poppins text-sm leading-5 text-black">
+                    <div className="flex w-full items-center justify-end gap-3">
+                      <span className="min-w-[100px] whitespace-nowrap font-poppins text-sm leading-5 text-black sm:w-auto sm:min-w-min">
                         Convert to:
                       </span>
                       <Select
@@ -205,7 +205,7 @@ const FileUploadModel = ({
                         }}
                         styles={colourStyles}
                         placeholder="Select"
-                        className="w-fit font-poppins text-base font-medium leading-6"
+                        className="w-full font-poppins text-base font-medium leading-6 sm:w-fit"
                       />
                     </div>
                   </div>
@@ -225,7 +225,7 @@ const FileUploadModel = ({
                   {...getRootProps()}
                   className={`${
                     isDragActive ? 'bg-blue-10' : ''
-                  } flex cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-blue-20 p-10 py-16 transition-all hover:bg-blue-10`}
+                  } flex cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-blue-20 px-2 py-16 transition-all hover:bg-blue-10 md:px-10`}
                 >
                   <input {...getInputProps()} aria-label="File upload input" />
                   <div className="flex flex-col items-center justify-center gap-4">
@@ -246,18 +246,19 @@ const FileUploadModel = ({
               </div>
             </div>
 
-            <div className="flex w-full items-center justify-between rounded-b-2xl bg-blue-10 p-6">
+            <div className="flex w-full flex-col items-center justify-between gap-y-3 rounded-b-2xl bg-blue-10 p-6 sm:flex-row">
               <div className="flex items-center gap-3">
                 <QuationIcon />
                 <span className="font-poppins text-base font-medium leading-6 text-[#B1B1B1]">
                   Help Center
                 </span>
               </div>
+
               {files && files.length > 0 && (
                 <button
                   type="button"
                   onClick={() => handleUploadFile()}
-                  className="flex h-[50px]  w-[210px] items-center  gap-2 rounded-lg border border-blue-20 px-3 py-1.5 font-poppins text-base font-normal leading-6 text-blue-20 transition-all hover:bg-blue-20 hover:text-white"
+                  className="flex h-[50px]  w-full items-center justify-center gap-2  rounded-lg border border-blue-20 px-3 py-1.5 font-poppins text-base font-normal leading-6 text-blue-20 transition-all hover:bg-blue-20 hover:text-white sm:w-[210px]"
                 >
                   <span>Convert prompts</span>
 
