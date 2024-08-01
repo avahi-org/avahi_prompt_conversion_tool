@@ -27,7 +27,6 @@ import {
 } from '@/utils/constant';
 
 import getGenerateClaudeAnswerData from './api/getGenerateClaudeAnswerData';
-import getGenerateCostData from './api/getGenerateCostData';
 import getGenerateGptData from './api/getGenerateGptData';
 import getGpttoClaudePromptConverterData from './api/getGpttoClaudePromptConverterData';
 
@@ -48,8 +47,8 @@ const Home = () => {
   const [isLoad, setIsLoad] = useState(false);
   const [modelIsOpen, setModelIsOpen] = useState(false);
 
-  const [, setGptCunvertedData] = useState<any>(null);
-  const [, setGptTimeDisplay] = useState<any>(null);
+  // const [, setGptCunvertedData] = useState<any>(null);
+  // const [, setGptTimeDisplay] = useState<any>(null);
 
   const [selectedGptData, setSelectedGptData] = useState<
     undefined | GptOptionDataType
@@ -88,14 +87,14 @@ const Home = () => {
         const startTime = new Date().getTime();
         let endTime = null;
         setSubmitting(true);
-        const tempElementText = document.createElement('div');
-        tempElementText.innerHTML = values.typeText;
-        const textContentElement =
-          tempElementText.textContent || tempElementText.innerText;
-        const cleanedTextContent = textContentElement.replace(/\n/g, '').trim();
+        // const tempElementText = document.createElement('div');
+        // tempElementText.innerHTML = values.typeText;
+        // const textContentElement =
+        //   tempElementText.textContent || tempElementText.innerText;
+        // const cleanedTextContent = textContentElement.replace(/\n/g, '').trim();
 
         const result = await getGpttoClaudePromptConverterData(
-          cleanedTextContent,
+          values.typeText,
           selectedBedrockData?.value || ''
         );
 
@@ -103,13 +102,13 @@ const Home = () => {
         if (result && result?.status === 200) {
           const resultData = JSON.parse(result?.data?.body);
           if (resultData) {
-            const tempElement = document.createElement('div');
-            tempElement.innerHTML = resultData?.claude_prompt;
-            const textContent =
-              tempElement.textContent || tempElement.innerText;
+            // const tempElement = document.createElement('div');
+            // tempElement.innerHTML = resultData?.claude_prompt;
+            // const textContent =
+            //   tempElement.textContent || tempElement.innerText;
 
             setSubmitting(false);
-            setFieldValue('outputText', textContent);
+            setFieldValue('outputText', resultData?.claude_prompt);
 
             setPrice(resultData?.total_average_cost);
             setCunvertedData({
@@ -128,17 +127,18 @@ const Home = () => {
 
   const handleGenerateBedrock = async () => {
     if (values.outputText && selectedBedrockData?.value) {
+      console.log('values.outputText', values.outputText);
       const startTime = new Date().getTime();
       let endTime = null;
       setSubmitting(true);
-      const tempElementText = document.createElement('div');
-      tempElementText.innerHTML = values.outputText;
-      const textContentElement =
-        tempElementText.textContent || tempElementText.innerText;
-      const cleanedTextContent = textContentElement.replace(/\n/g, '').trim();
+      // const tempElementText = document.createElement('div');
+      // tempElementText.innerHTML = values.outputText;
+      // const textContentElement =
+      //   tempElementText.textContent || tempElementText.innerText;
+      // const cleanedTextContent = textContentElement.replace(/\n/g, '').trim();
 
       const result = await getGenerateClaudeAnswerData(
-        cleanedTextContent,
+        values.outputText,
         selectedBedrockData?.value || ''
       );
 
@@ -148,15 +148,15 @@ const Home = () => {
         setBedrockText(selectedBedrockData?.value);
         const resultData = JSON.parse(result?.data?.body);
         if (resultData) {
-          const tempElement = document.createElement('div');
-          tempElement.innerHTML = resultData.answer;
-          const textContent = tempElement.textContent || tempElement.innerText;
+          // const tempElement = document.createElement('div');
+          // tempElement.innerHTML = resultData.answer;
+          // const textContent = tempElement.textContent || tempElement.innerText;
 
           setBedrockCunvertedData({
             input_token_cost: resultData?.input_token_cost,
             output_token: resultData?.output_token_cost,
           });
-          setFieldValue('bedrockOutput', textContent);
+          setFieldValue('bedrockOutput', resultData.answer);
           setBedrockPrice(resultData?.total_average_cost);
         }
       }
@@ -166,62 +166,66 @@ const Home = () => {
     }
   };
 
-  const handleGenerateCost = async () => {
-    if (values.typeText && selectedGptData?.value) {
-      setSubmitting(true);
-      const startTime = new Date().getTime();
-      let endTime = null;
+  // const handleGenerateCost = async () => {
+  //   if (values.typeText && selectedGptData?.value) {
+  //     setSubmitting(true);
+  //     const startTime = new Date().getTime();
+  //     let endTime = null;
 
-      const tempElementText = document.createElement('div');
-      tempElementText.innerHTML = values.typeText;
-      const textContentElement =
-        tempElementText.textContent || tempElementText.innerText;
-      const cleanedTextContent = textContentElement.replace(/\n/g, '').trim();
+  //     const tempElementText = document.createElement('div');
+  //     tempElementText.innerHTML = values.typeText;
+  //     const textContentElement =
+  //       tempElementText.textContent || tempElementText.innerText;
+  //     const cleanedTextContent = textContentElement.replace(/\n/g, '').trim();
 
-      const result = await getGenerateCostData(
-        cleanedTextContent,
-        selectedGptData?.value || ''
-      );
-      endTime = new Date().getTime();
-      if (result) {
-        setSubmitting(false);
-      }
-      if (result && result?.status === 200) {
-        const resultData = JSON.parse(result?.data?.body);
-        if (resultData) {
-          setShowPdfGenerator(true);
-          setGptTimeDisplay(resultData?.input_token_cost);
-          setGptCunvertedData({
-            input_token_cost: resultData?.input_token_cost,
-          });
-        }
-      }
-      const getTime = getTimeCalculation(endTime - startTime);
-      setGptTimeDisplay(getTime);
-    }
-  };
+  //     const result = await getGenerateCostData(
+  //       cleanedTextContent,
+  //       selectedGptData?.value || ''
+  //     );
+  //     endTime = new Date().getTime();
+  //     if (result) {
+  //       setSubmitting(false);
+  //     }
+  //     if (result && result?.status === 200) {
+  //       const resultData = JSON.parse(result?.data?.body);
+  //       if (resultData) {
+  //         setShowPdfGenerator(true);
+  //         setGptTimeDisplay(resultData?.input_token_cost);
+  //         setGptCunvertedData({
+  //           input_token_cost: resultData?.input_token_cost,
+  //         });
+  //       }
+  //     }
+  //     const getTime = getTimeCalculation(endTime - startTime);
+  //     setGptTimeDisplay(getTime);
+  //   }
+  // };
 
   const handleGenerateGpt = async () => {
     if (values.typeText && selectedGptData?.value) {
       const startTime = new Date().getTime();
       let endTime = null;
       setSubmitting(true);
-      const tempElementText = document.createElement('div');
-      tempElementText.innerHTML = values.typeText;
-      const textContentElement =
-        tempElementText.textContent || tempElementText.innerText;
-      const cleanedTextContent = textContentElement.replace(/\n/g, '').trim();
+      // const tempElementText = document.createElement('div');
+      // tempElementText.innerHTML = values.typeText;
+      // const textContentElement =
+      //   tempElementText.textContent || tempElementText.innerText;
+      // const cleanedTextContent = textContentElement.replace(/\n/g, '').trim();
 
       const result = await getGenerateGptData(
-        cleanedTextContent,
+        values.typeText,
         selectedGptData?.value || ''
       );
 
       endTime = new Date().getTime();
+      if (result) {
+        setSubmitting(false);
+      }
 
       if (result && result?.status === 200) {
         const resultData = JSON.parse(result?.data?.body);
         if (resultData) {
+          setShowPdfGenerator(true);
           setGptText(selectedGptData?.value);
           setCunvertedData({
             input_token_cost: resultData?.input_token_cost,
@@ -229,7 +233,7 @@ const Home = () => {
           });
           setFieldValue('gptText', resultData.answer);
           setPrice(resultData?.total_average_cost);
-          await handleGenerateCost();
+          // await handleGenerateCost();
         }
       }
 

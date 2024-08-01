@@ -124,7 +124,6 @@ const FileUploadModel = ({
     onDropRejected,
     accept: {
       'text/csv': ['.csv'],
-      'application/pdf': ['.pdf'],
       'application/vnd.ms-excel': ['.xls'],
     },
     maxSize: maxFileSize,
@@ -239,7 +238,7 @@ const FileUploadModel = ({
                   </div>
                 </div>
                 <p className="mt-1.5 flex items-center justify-between font-poppins text-[10px] font-normal leading-3 text-[#9B9B9B]">
-                  Supported formats: CSV, PDF, XLS
+                  Supported formats: CSV, XLS
                   <span>Maximum size: 25MB</span>
                 </p>
                 {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
