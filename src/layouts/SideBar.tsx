@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 import React, { useEffect, useState } from 'react';
+import { SiConvertio } from 'react-icons/si';
 
 import FrameActiveIcon from '@/components/Icons/FrameActiveIcon';
 import FrameIcon from '@/components/Icons/FrameIcon';
@@ -34,6 +35,13 @@ const MENUBAR = [
     path: '/multiprompt',
     name: 'Multi-prompt conversion',
   },
+  {
+    id: 3,
+    activeIcon: <SiConvertio size={20} className="m-2.5" />,
+    disableIcon: <SiConvertio size={20} className="m-2.5" />,
+    path: '/converter',
+    name: 'Image Converter',
+  },
 ];
 
 const AUTH_MENUBAR = [
@@ -41,7 +49,7 @@ const AUTH_MENUBAR = [
     id: 1,
     activeIcon: <FrameActiveIcon />,
     disableIcon: <FrameIcon />,
-    path: '/free',
+    path: '/demo',
     name: 'Single Prompt Conversion',
   },
 ];
@@ -195,7 +203,7 @@ const SideBar = ({ childrens, isAuth }: SideBarProps) => {
                   };
 
                   setCookie('token', '');
-                  router.push('/free');
+                  router.push('/demo');
                 }}
                 className="rounded-md bg-blue-20 px-3 py-2 font-poppins text-base font-medium leading-5 text-white transition-all duration-300 hover:bg-blue-50"
               >

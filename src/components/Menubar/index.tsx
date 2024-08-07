@@ -76,7 +76,7 @@ const MenuBar = ({
                   };
 
                   setCookie('token', '');
-                  router.push('/free');
+                  router.push('/demo');
                 }}
                 className="rounded-md bg-blue-20 px-3 py-2 font-poppins text-base font-medium leading-5 text-white transition-all duration-300 hover:bg-blue-50"
               >

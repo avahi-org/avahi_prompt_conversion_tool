@@ -7,66 +7,14 @@
     "OpenAI Latency",
     "Bedrock Latency"
   ],
-  "body": [
-    {
-      "id": 1,
-      "openAI_prompt": "SYSTEM You will be provided with a tweet, and your task is to classify its sentiment as positive, neutral, or negative. USER I loved the new Batman movie!",
-      "bedrock_promp": "You will be provided with a tweet that you need to analyze and classify the sentiment as positive, neutral, or negative. Here is the tweet: {$TWEET} Carefully read through the tweet and think about the overall sentiment expressed. Is the sentiment positive, neutral, or negative? Provide a justification for your sentiment classification based on the content and tone of the tweet. Write your sentiment classification and justification inside the following tags: [Sentiment Classification]: [Positive/Neutral/Negative] [Justification]: [Provide a 1-2 sentence justification for the sentiment classification]",
-      "openAI_total_price": 1.78,
-      "bedrock_total_price": {
-        "price": 0.78,
-        "difference": 50
-      },
-      "openAI_latency": 4,
-      "bedrock_latency": {
-        "secound": 2,
-        "difference": 50
-      }
-    },
-    {
-      "id": 2,
-      "openAI_prompt": "SYSTEM You will be provided with a tweet, and your task is to classify its sentiment as positive, neutral, or negative. USER I loved the new Batman movie!",
-      "bedrock_promp": "You will be provided with a tweet that you need to analyze and classify the sentiment as positive, neutral, or negative. Here is the tweet: {$TWEET} Carefully read through the tweet and think about the overall sentiment expressed. Is the sentiment positive, neutral, or negative? Provide a justification for your sentiment classification based on the content and tone of the tweet. Write your sentiment classification and justification inside the following tags: [Sentiment Classification]: [Positive/Neutral/Negative] [Justification]: [Provide a 1-2 sentence justification for the sentiment classification]",
-      "openAI_total_price": 1.78,
-      "bedrock_total_price": {
-        "price": 0.78,
-        "difference": 50
-      },
-      "openAI_latency": 4,
-      "bedrock_latency": {
-        "secound": 2,
-        "difference": 50
-      }
-    },
-    {
-      "id": 3,
-      "openAI_prompt": "SYSTEM You will be provided with a tweet, and your task is to classify its sentiment as positive, neutral, or negative. USER I loved the new Batman movie!",
-      "bedrock_promp": "You will be provided with a tweet that you need to analyze and classify the sentiment as positive, neutral, or negative. Here is the tweet: {$TWEET} Carefully read through the tweet and think about the overall sentiment expressed. Is the sentiment positive, neutral, or negative? Provide a justification for your sentiment classification based on the content and tone of the tweet. Write your sentiment classification and justification inside the following tags: [Sentiment Classification]: [Positive/Neutral/Negative] [Justification]: [Provide a 1-2 sentence justification for the sentiment classification]",
-      "openAI_total_price": 1.78,
-      "bedrock_total_price": {
-        "price": 0.78,
-        "difference": 50
-      },
-      "openAI_latency": 4,
-      "bedrock_latency": {
-        "secound": 2,
-        "difference": 50
-      }
-    },
-    {
-      "id": 4,
-      "openAI_prompt": "SYSTEM You will be provided with a tweet, and your task is to classify its sentiment as positive, neutral, or negative. USER I loved the new Batman movie!",
-      "bedrock_promp": "You will be provided with a tweet that you need to analyze and classify the sentiment as positive, neutral, or negative. Here is the tweet: {$TWEET} Carefully read through the tweet and think about the overall sentiment expressed. Is the sentiment positive, neutral, or negative? Provide a justification for your sentiment classification based on the content and tone of the tweet. Write your sentiment classification and justification inside the following tags: [Sentiment Classification]: [Positive/Neutral/Negative] [Justification]: [Provide a 1-2 sentence justification for the sentiment classification]",
-      "openAI_total_price": 1.78,
-      "bedrock_total_price": {
-        "price": 0.78,
-        "difference": 50
-      },
-      "openAI_latency": 4,
-      "bedrock_latency": {
-        "secound": 2,
-        "difference": 50
-      }
-    }
+  "OutputHeader": [
+    "OpenAI Prompt",
+    "OpenAI Output",
+    "Bedrock Prompt",
+    "Bedrock Output",
+    "OpenAI Total Price",
+    "Bedrock Total Price",
+    "OpenAI Latency",
+    "Bedrock Latency"
   ]
 }

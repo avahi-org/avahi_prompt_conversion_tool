@@ -23,12 +23,11 @@ export default async function handler(
 
   try {
     const { queryStringParameters }: RequestBody = req.body;
-    console.log(queryStringParameters);
 
     const config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://bkbzcyyau5.execute-api.us-east-1.amazonaws.com/fetch-multianswer-generated-files/fetch-multianswer-generated-files',
+      url: 'https://cdgjdrqm6k.execute-api.us-east-1.amazonaws.com/fetch-multiprompt-converted-file/fetch-multiprompt-converted-file',
       headers: {
         'x-api-key': 'rA8hYHiV6o5BxrVm0n0Z91DHCHZJ7G5A6P39VJoe',
         'Content-Type': 'application/json',

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { calculateAmmount } from '@/utils/calculateAmmount';
+
 import TableDownArrow from '../Icons/TableDownArrow';
 import IsCountPr from '../IsCountPr';
 
@@ -8,6 +10,8 @@ type PriceDropDownProps = {
   count?: number;
   price: number;
   isDisabled?: boolean;
+  inputPrice?: number;
+  outputPrice?: number;
 };
 
 const PriceDropDown = ({
@@ -15,8 +19,12 @@ const PriceDropDown = ({
   price,
   count,
   isDisabled,
+  inputPrice,
+  outputPrice,
 }: PriceDropDownProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const inputToken = calculateAmmount(Number(inputPrice), Number(outputPrice));
   return (
     <div className="flex flex-col gap-3">
       <button
@@ -29,7 +37,12 @@ const PriceDropDown = ({
             {`${price ? `$${price}` : '--'}`}
           </span>
           {isPrShown && count && (
-            <IsCountPr isUp={true} count={Math.abs(Number(count))} />
+            <IsCountPr
+              isUp={inputToken?.isUp}
+              count={Math.abs(
+                Number(inputToken?.percentageDifference?.toFixed(2))
+              )}
+            />
           )}
         </div>
 
@@ -48,13 +61,17 @@ const PriceDropDown = ({
             <span className="font-poppins text-xs text-[#9E9E9E]">
               Input Token Price
             </span>
-            <span className="font-poppins text-base text-black">$0.88</span>
+            <span className="font-poppins text-base text-black">
+              ${inputPrice}
+            </span>
           </div>
           <div className="flex flex-col items-start gap-1">
             <span className="font-poppins text-xs text-[#9E9E9E]">
-              Input Token Price
+              Output Token Price
             </span>
-            <span className="font-poppins text-base text-black">$0.88</span>
+            <span className="font-poppins text-base text-black">
+              ${outputPrice}
+            </span>
           </div>
         </div>
       )}

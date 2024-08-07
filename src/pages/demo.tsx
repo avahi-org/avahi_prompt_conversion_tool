@@ -5,6 +5,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useFormik } from 'formik';
 import type { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import nookies from 'nookies';
 import React, { useEffect, useState } from 'react';
 import { RiAiGenerate } from 'react-icons/ri';
@@ -460,6 +461,18 @@ const Home = () => {
               timeDisplay={bedrockTimeDisplay}
               cunvertedData={bedrockCunvertedData}
             />
+          </div>
+        )}
+
+        {bedrockPrice && (
+          <div className="flex w-full flex-col items-center justify-center gap-4 rounded-lg bg-blue-5 px-5 py-4 md:flex-row md:px-14 2xl:px-[84px]">
+            <Link
+              href={'https://www.avahitech.com/'}
+              target="_blank"
+              className="flex items-center justify-center gap-2.5 whitespace-nowrap rounded-lg bg-blue-20 px-3 py-1.5 text-center font-poppins text-base font-medium text-white transition-all hover:bg-blue-50"
+            >
+              Prototype AI
+            </Link>
           </div>
         )}
       </form>

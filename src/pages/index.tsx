@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     redirect: {
       source: ctx.req.url,
-      destination: `/free`,
+      destination: `/demo`,
     },
     props: {},
   };

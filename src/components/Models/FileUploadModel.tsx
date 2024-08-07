@@ -124,7 +124,7 @@ const FileUploadModel = ({
     onDropRejected,
     accept: {
       'text/csv': ['.csv'],
-      'application/vnd.ms-excel': ['.xls'],
+      'application/vnd.ms-excel': ['.xlsx'],
     },
     maxSize: maxFileSize,
     multiple: true,
