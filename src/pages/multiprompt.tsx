@@ -85,7 +85,6 @@ const CostSavings = () => {
 
   const handleUploadFile = async () => {
     setIsFileLoading(true);
-    debugger
     if (files && files.length > 0) {
       try {
         const formData = new FormData();
