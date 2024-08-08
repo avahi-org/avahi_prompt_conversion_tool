@@ -1,10 +1,12 @@
+/* eslint-disable no-alert */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
+import AWS from 'aws-sdk';
 import axios from 'axios';
 import type { GetServerSideProps } from 'next';
 import nookies from 'nookies';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 import CostSavingCart from '@/components/CostSavings/CostSavingCart';
 import CostTable from '@/components/CostSavings/CostTable';
@@ -14,6 +16,9 @@ import SpinnerLoading from '@/components/Loader/SpinnerLoading';
 import FileUploadModel from '@/components/Models/FileUploadModel';
 import { Meta } from '@/layouts/Meta';
 import { MainLayout } from '@/templates/MainLayout';
+import type { BedrockPromptOptionDataType } from '@/types/BedrockPromptOptionDataType';
+import type { GptOptionDataType } from '@/types/GptOptionDataType';
+import { BEDROCK_PROMPT_OPTONS, GPT_PROMPT_OPTIONS } from '@/utils/constant';
 
 interface FileWithPreview extends File {
   preview: string;
@@ -40,13 +45,20 @@ type Prompt = {
 const CostSavings = () => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const [fileModelOpen, setFileModelOpen] = useState(false);
-  const [isGenerateBtn, setIsGenerateBtn] = useState<boolean>(false);
+  const [isGenerateBtn] = useState<boolean>(false);
   const [isGenerateReport, setIsGenerateReport] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isShowOutput, setisShowOutput] = useState<boolean>(false);
-  const [isFileLoading, setIsFileLoading] = useState<boolean>(false);
-  const [fileKeys, setFileKeys] = useState<any>(null);
+  const [isFileLoading] = useState<boolean>(false);
+  const [fileKeys] = useState<any>(null);
   const [multiPrompt, setMultiPrompt] = useState<Prompt[]>([]);
+  const [selectedGpt, setSelectedGpt] = useState<undefined | GptOptionDataType>(
+    GPT_PROMPT_OPTIONS[0]
+  );
+
+  const [selectedBedrock, setSelectedBedrock] = useState<
+    BedrockPromptOptionDataType | undefined
+  >(BEDROCK_PROMPT_OPTONS[0]);
 
   const handleMultiPrompt = async (s3_key: string) => {
     setIsLoading(true);
@@ -79,40 +91,156 @@ const CostSavings = () => {
   useEffect(() => {
     if (fileKeys && fileKeys?.s3_key) {
       console.log('fileKeys?.s3_key', fileKeys?.s3_key);
-      handleMultiPrompt(fileKeys?.s3_key);
+      // handleMultiPrompt(fileKeys?.s3_key);
     }
   }, [fileKeys]);
 
-  const handleUploadFile = async () => {
-    setIsFileLoading(true);
+  // const uploadFile = async () => {
+  //   debugger;
+  //   // S3 Bucket Name
+  //   const S3_BUCKET = 'avahi-prompt-converter-tool-multiprompt-data';
+
+  //   // S3 Region
+  //   const REGION = 'us-east-1';
+
+  //   // S3 Credentials
+  //   AWS.config.update({
+  //     accessKeyId: 'AKIA4XCMGHUHZEACHJMQ',
+  //     secretAccessKey: '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',
+  //   });
+  //   const s3 = new AWS.S3({
+  //     params: { Bucket: S3_BUCKET },
+  //     region: REGION,
+  //   });
+
+  //   // Files Parameters
+  //   if (files && files.length > 0) {
+  //     const fileObject = files[0] as File;
+
+  //     const params = {
+  //       Bucket: S3_BUCKET,
+  //       Key: fileObject.name,
+  //       Body: fileObject,
+  //     };
+
+  //     // Uploading file to s3
+
+  //     const upload = s3
+  //       .putObject(params)
+  //       .on('httpUploadProgress', (evt: any) => {
+  //         console.log('evt', evt);
+  //         // File uploading progress
+  //         // eslint-disable-next-line prettier/prettier
+
+  //         console.log(
+  //           `Uploading ${parseInt((evt.loaded * 100) / evt.total, 10)}%`
+  //         );
+  //       })
+  //       .promise();
+
+  //     await upload.then((err: any, data: any) => {
+  //       // console.log(err);
+  //       // Fille successfully uploaded
+  //       console.log('File uploaded successfully.', data);
+  //     });
+  //   }
+  // };
+
+  const uploadFile = async () => {
+    // S3 Bucket Name
+    const S3_BUCKET = 'avahi-prompt-converter-tool-multiprompt-data';
+
+    // S3 Region
+    const REGION = 'us-east-1';
+
+    // Configure AWS with access and secret keys
+    AWS.config.update({
+      accessKeyId: 'AKIA4XCMGHUHZEACHJMQ',
+      secretAccessKey: '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',
+    });
+
+    // Create S3 instance
+    const s3 = new AWS.S3({
+      region: REGION,
+    });
+
+    // File Parameters
     if (files && files.length > 0) {
+      const fileObject = files[0] as File;
+
+      const filePathe = `input_files/${uuidv4()}/${selectedGpt?.value}-to-${
+        selectedBedrock?.value
+      }/${fileObject.name}`;
+      console.log('filePathe', filePathe);
+      const params = {
+        Bucket: S3_BUCKET,
+        Key: filePathe,
+        Body: fileObject,
+        // ACL: 'public-read', // Set ACL as needed
+      };
+
       try {
-        const formData = new FormData();
-        files.forEach((file) => {
-          formData.append('file', file);
-        });
-        formData.append('gpt_model_name', 'gpt-4-turbo');
-        formData.append('bedrock_model_name', 'sonnet-3.5');
+        // Uploading file to s3
+        const data = await s3
+          .upload(params)
+          .on('httpUploadProgress', (evt: AWS.S3.ManagedUpload.Progress) => {
+            console.log('evt', evt);
+            // File uploading progress
+            // console.log(
+            //   `Uploading ${parseInt((evt.loaded * 100) / evt.total, 10)}%`
+            // );
+          })
+          .promise();
 
-        const response = await axios.post('/api/fileUpload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        // File successfully uploaded
+        console.log('File uploaded successfully.', data);
 
-        console.log('response', response);
-        if (response && response?.status === 200) {
-          setFiles([]);
-          setIsGenerateBtn(true);
-          setFileKeys(response?.data?.data);
-          setFileModelOpen(false);
-          toast.success(response?.data?.data?.message);
-        }
-      } catch (error) {
-        console.error('Error uploading file:', error);
-      } finally {
-        setIsFileLoading(false);
+        // Access the uploaded file details
+        console.log('File URL:', data.Location);
+        console.log('ETag:', data.ETag);
+        console.log('Bucket:', data.Bucket);
+        console.log('Key:', data.Key);
+
+        // Optional: Show an alert with the file URL
+        // alert(`File uploaded successfully. Access it here: ${data.Location}`);
+      } catch (err) {
+        console.error('Error uploading file:', err);
+        alert('Error uploading file.');
       }
+    }
+  };
+
+  const handleUploadFile = async () => {
+    // setIsFileLoading(true);
+    if (files && files.length > 0) {
+      uploadFile();
+      // try {
+      //   const formData = new FormData();
+      //   files.forEach((file) => {
+      //     formData.append('file', file);
+      //   });
+      //   formData.append('gpt_model_name', 'gpt-4-turbo');
+      //   formData.append('bedrock_model_name', 'sonnet-3.5');
+
+      //   const response = await axios.post('/api/fileUpload', formData, {
+      //     headers: {
+      //       'Content-Type': 'multipart/form-data',
+      //     },
+      //   });
+
+      //   console.log('response', response);
+      //   if (response && response?.status === 200) {
+      //     setFiles([]);
+      //     setIsGenerateBtn(true);
+      //     setFileKeys(response?.data?.data);
+      //     setFileModelOpen(false);
+      //     toast.success(response?.data?.data?.message);
+      //   }
+      // } catch (error) {
+      //   console.error('Error uploading file:', error);
+      // } finally {
+      //   setIsFileLoading(false);
+      // }
     }
   };
 
@@ -169,7 +297,9 @@ const CostSavings = () => {
         <UploadFile
           handleUploadFile={() => setFileModelOpen(true)}
           isGenerateBtn={isGenerateBtn}
-          handleGenerateOutput={handleGenerateOutput}
+          handleGenerateOutput={
+            handleGenerateOutput || handleMultiPrompt('sdsds')
+          }
         />
 
         <div className="lg:px-6">
@@ -201,6 +331,10 @@ const CostSavings = () => {
         setFiles={setFiles}
         setIsOpen={setFileModelOpen}
         isLoading={isFileLoading}
+        setSelectedGpt={setSelectedGpt}
+        selectedGpt={selectedGpt}
+        selectedBedrock={selectedBedrock}
+        setSelectedBedrock={setSelectedBedrock}
       />
 
       {isLoading && <SpinnerLoading />}

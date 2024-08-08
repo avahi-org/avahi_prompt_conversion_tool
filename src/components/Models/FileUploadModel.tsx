@@ -28,6 +28,14 @@ type FileUploadModelProps = {
   setFiles: React.Dispatch<React.SetStateAction<FileWithPreview[]>>;
   handleUploadFile: () => void;
   isLoading: boolean;
+  setSelectedGpt: React.Dispatch<
+    React.SetStateAction<GptOptionDataType | undefined>
+  >;
+  selectedGpt: GptOptionDataType | undefined;
+  selectedBedrock: BedrockPromptOptionDataType | undefined;
+  setSelectedBedrock: React.Dispatch<
+    React.SetStateAction<BedrockPromptOptionDataType | undefined>
+  >;
 };
 
 interface FileWithPreview extends File {
@@ -41,15 +49,12 @@ const FileUploadModel = ({
   setFiles,
   handleUploadFile,
   isLoading,
+  setSelectedGpt,
+  selectedGpt,
+  selectedBedrock,
+  setSelectedBedrock,
 }: FileUploadModelProps) => {
   const [error, setError] = useState<string | null>(null);
-  const [selectedGpt, setSelectedGpt] = useState<undefined | GptOptionDataType>(
-    GPT_PROMPT_OPTIONS[0]
-  );
-
-  const [selectedBedrock, setSelectedBedrock] = useState<
-    BedrockPromptOptionDataType | undefined
-  >(BEDROCK_PROMPT_OPTONS[0]);
 
   const maxFileSize = 25 * 1024 * 1024;
 

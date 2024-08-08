@@ -2,7 +2,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 import React, { useEffect, useState } from 'react';
+import { DiMagento } from 'react-icons/di';
+import { GrVirtualStorage } from 'react-icons/gr';
+import { MdContentPasteSearch } from 'react-icons/md';
 import { SiConvertio } from 'react-icons/si';
+import { TbNotificationOff } from 'react-icons/tb';
 
 import FrameActiveIcon from '@/components/Icons/FrameActiveIcon';
 import FrameIcon from '@/components/Icons/FrameIcon';
@@ -33,7 +37,7 @@ const MENUBAR = [
     activeIcon: <StarSaveActiveIcon />,
     disableIcon: <StarSaveIcon />,
     path: '/multiprompt',
-    name: 'Multi-prompt conversion',
+    name: 'Multi Prompt Conversion',
   },
   {
     id: 3,
@@ -41,6 +45,34 @@ const MENUBAR = [
     disableIcon: <SiConvertio size={20} className="m-2.5" />,
     path: '/converter',
     name: 'Image Converter',
+  },
+  {
+    id: 4,
+    activeIcon: <GrVirtualStorage size={20} className="m-2.5" />,
+    disableIcon: <GrVirtualStorage size={20} className="m-2.5" />,
+    path: '/virtual',
+    name: 'Virtual Try On',
+  },
+  {
+    id: 5,
+    activeIcon: <DiMagento size={20} className="m-2.5" />,
+    disableIcon: <DiMagento size={20} className="m-2.5" />,
+    path: '/segmentation',
+    name: 'Medical Image Segmentation',
+  },
+  {
+    id: 6,
+    activeIcon: <MdContentPasteSearch size={20} className="m-2.5" />,
+    disableIcon: <MdContentPasteSearch size={20} className="m-2.5" />,
+    path: '/visualsearch',
+    name: 'Visual Search',
+  },
+  {
+    id: 7,
+    activeIcon: <TbNotificationOff size={20} className="m-2.5" />,
+    disableIcon: <TbNotificationOff size={20} className="m-2.5" />,
+    path: '/classifcation',
+    name: 'Image Classifcation',
   },
 ];
 
