@@ -95,57 +95,6 @@ const CostSavings = () => {
     }
   }, [fileKeys]);
 
-  // const uploadFile = async () => {
-  //   debugger;
-  //   // S3 Bucket Name
-  //   const S3_BUCKET = 'avahi-prompt-converter-tool-multiprompt-data';
-
-  //   // S3 Region
-  //   const REGION = 'us-east-1';
-
-  //   // S3 Credentials
-  //   AWS.config.update({
-  //     accessKeyId: 'AKIA4XCMGHUHZEACHJMQ',
-  //     secretAccessKey: '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',
-  //   });
-  //   const s3 = new AWS.S3({
-  //     params: { Bucket: S3_BUCKET },
-  //     region: REGION,
-  //   });
-
-  //   // Files Parameters
-  //   if (files && files.length > 0) {
-  //     const fileObject = files[0] as File;
-
-  //     const params = {
-  //       Bucket: S3_BUCKET,
-  //       Key: fileObject.name,
-  //       Body: fileObject,
-  //     };
-
-  //     // Uploading file to s3
-
-  //     const upload = s3
-  //       .putObject(params)
-  //       .on('httpUploadProgress', (evt: any) => {
-  //         console.log('evt', evt);
-  //         // File uploading progress
-  //         // eslint-disable-next-line prettier/prettier
-
-  //         console.log(
-  //           `Uploading ${parseInt((evt.loaded * 100) / evt.total, 10)}%`
-  //         );
-  //       })
-  //       .promise();
-
-  //     await upload.then((err: any, data: any) => {
-  //       // console.log(err);
-  //       // Fille successfully uploaded
-  //       console.log('File uploaded successfully.', data);
-  //     });
-  //   }
-  // };
-
   const uploadFile = async () => {
     // S3 Bucket Name
     const S3_BUCKET = '';
