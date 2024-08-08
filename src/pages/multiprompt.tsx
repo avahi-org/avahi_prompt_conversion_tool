@@ -148,15 +148,15 @@ const CostSavings = () => {
 
   const uploadFile = async () => {
     // S3 Bucket Name
-    const S3_BUCKET = 'avahi-prompt-converter-tool-multiprompt-data';
+    const S3_BUCKET = '';
 
     // S3 Region
     const REGION = 'us-east-1';
 
     // Configure AWS with access and secret keys
     AWS.config.update({
-      accessKeyId: 'AKIA4XCMGHUHZEACHJMQ',
-      secretAccessKey: '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',
+      accessKeyId: '',
+      secretAccessKey: '',
     });
 
     // Create S3 instance
