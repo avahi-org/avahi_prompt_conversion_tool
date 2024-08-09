@@ -1,5 +1,3 @@
-import { generateCostApiURL } from '@/utils/constant';
-
 const axios = require('axios');
 
 const getGenerateCostData = async (gpt4Text: string, model_name: string) => {
@@ -15,7 +13,7 @@ const getGenerateCostData = async (gpt4Text: string, model_name: string) => {
     maxBodyLength: Infinity,
     connection: 'keep-alive',
     host: Infinity,
-    url: `${generateCostApiURL}generate_gpt_input_token_cost/generate_cost`,
+    url: `${process.env.NEXT_PUBLIC_GENERATE_COST}generate_gpt_input_token_cost/generate_cost`,
     headers: {
       'x-api-key': 'rA8hYHiV6o5BxrVm0n0Z91DHCHZJ7G5A6P39VJoe',
       'Content-Type': 'application/json',

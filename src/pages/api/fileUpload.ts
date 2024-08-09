@@ -29,7 +29,7 @@ export default async function handler(
     const config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://oyiq4p7oe1.execute-api.us-east-1.amazonaws.com/PCT-upload-multiprompt-files/upload_multiprompt-file',
+      url: `${process.env.NEXT_PUBLIC_FILE_UPLOAD}PCT-upload-multiprompt-files/upload_multiprompt-file`,
       headers: {
         'x-api-key': 'rA8hYHiV6o5BxrVm0n0Z91DHCHZJ7G5A6P39VJoe',
         ...data.getHeaders(),

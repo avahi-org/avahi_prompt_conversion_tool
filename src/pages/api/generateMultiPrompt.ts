@@ -27,7 +27,7 @@ export default async function handler(
     const config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://cdgjdrqm6k.execute-api.us-east-1.amazonaws.com/fetch-multiprompt-converted-file/fetch-multiprompt-converted-file',
+      url: `${process.env.NEXT_PUBLIC_GENERATE_MULTI_PROMPT}fetch-multiprompt-converted-file/fetch-multiprompt-converted-file`,
       headers: {
         'x-api-key': 'rA8hYHiV6o5BxrVm0n0Z91DHCHZJ7G5A6P39VJoe',
         'Content-Type': 'application/json',

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import type { BedrockPromptOptionDataType } from '@/types/BedrockPromptOptionDataType';
 import type { GptOptionDataType } from '@/types/GptOptionDataType';
 
@@ -46,7 +47,6 @@ export const selectColourStyles = {
   IndicatorSeparator: () => null,
   option: (styles: any, { isFocused, isSelected }: any) => ({
     ...styles,
-    // eslint-disable-next-line no-nested-ternary
     backgroundColor: isSelected ? '#F4F4F4' : isFocused ? '#F4F4F4' : undefined,
     color: isSelected ? '#1084FF' : '#888888',
     '&:active': {
@@ -78,7 +78,6 @@ export const colourStyles = {
   IndicatorSeparator: () => null,
   option: (styles: any, { isFocused, isSelected }: any) => ({
     ...styles,
-    // eslint-disable-next-line no-nested-ternary
     backgroundColor: isSelected ? '#F4F4F4' : isFocused ? '#F4F4F4' : undefined,
     color: isSelected ? '#1084FF' : '#888888',
     '&:active': {
@@ -99,18 +98,6 @@ export const colourStyles = {
 export const wordCounter = (paragraph: string) => {
   return paragraph.match(/\b\w+\b/g)?.length;
 };
-
-export const generateGptApiURL =
-  'https://utvzkaqcm5.execute-api.us-east-1.amazonaws.com/';
-
-export const generateClaudeAnswerApiURL =
-  'https://td67y4eqeb.execute-api.us-east-1.amazonaws.com/';
-
-export const promptConverterApiURL =
-  'https://an6dzbt9u8.execute-api.us-east-1.amazonaws.com/';
-
-export const generateCostApiURL =
-  'https://2sejgh00lk.execute-api.us-east-1.amazonaws.com/';
 
 export const gptExamples = [
   {
